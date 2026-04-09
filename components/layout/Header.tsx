@@ -19,22 +19,31 @@ export default function Header() {
         </span>
       </Link>
 
-      {/* Nav links — hidden on mobile */}
+      {/* Nav links */}
       <nav className="hidden md:flex items-center gap-8" aria-label="Primary navigation">
-        {['Features', 'Rules', 'Blog'].map((item) => (
-          <Link
-            key={item}
-            href={`/${item.toLowerCase()}`}
-            className="text-[13px] font-medium text-white/45 hover:text-white/85 tracking-[0.02em] transition-colors duration-150"
-          >
-            {item}
-          </Link>
-        ))}
+        <Link
+          href="/features"
+          className="text-[13px] font-medium text-white/45 hover:text-white/85 tracking-[0.02em] transition-colors duration-150"
+        >
+          Features
+        </Link>
+        <Link
+          href="/rules"
+          className="text-[13px] font-medium text-white/45 hover:text-white/85 tracking-[0.02em] transition-colors duration-150"
+        >
+          Rules
+        </Link>
+        <Link
+          href="/blog"
+          className="text-[13px] font-medium text-white/45 hover:text-white/85 tracking-[0.02em] transition-colors duration-150"
+        >
+          Blog
+        </Link>
       </nav>
 
       {/* Download CTA */}
       <a
-        href="#download"
+        href="/log"
         className="
           inline-flex items-center gap-2
           bg-volt text-[#050505]
@@ -50,7 +59,7 @@ export default function Header() {
         <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
           <path d="M6.5 1v8M3.5 6.5l3 3 3-3M2 12h9" stroke="#050505" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
-        Download App
+        Start Scoring
       </a>
     </header>
   );
