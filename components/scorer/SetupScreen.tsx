@@ -77,6 +77,7 @@ export default function SetupScreen({ onStart }: SetupScreenProps) {
           ['longDeuce',   'Long Deuce'],
           ['silverPoint', 'Silver Point'],
           ['goldenPoint', 'Golden Point'],
+          ['starPoint',   'Star Point'],
         ] as [DeuceMode, string][]).map(([val, label]) => (
           <button key={val} className={deuceMode === val ? PILL_ON : PILL_OFF} onClick={() => setDeuceMode(val)}>
             {label}
