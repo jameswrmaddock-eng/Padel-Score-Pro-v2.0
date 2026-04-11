@@ -9,8 +9,6 @@ export default function Home() {
       <Header />
       <Hero />
       <div className="h-px bg-white/[0.06] mx-10" />
-      <RecentMatches />
-      <div className="h-px bg-white/[0.06] mx-10" />
       <RecommendedGear />
     </main>
   );
