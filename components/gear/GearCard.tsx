@@ -29,7 +29,7 @@ export default function GearCard({ product, animDelay = 0 }: GearCardProps) {
   const [imgError, setImgError] = useState(false);
   const [hovered, setHovered] = useState(false);
 
-  const amazonUrl = getAmazonUrl(product);
+  const amazonUrl = getAmazonSearchUrl(product);
 
   const cardBase = [
     'group relative rounded-[24px] border overflow-hidden',
