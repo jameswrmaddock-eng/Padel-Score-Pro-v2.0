@@ -1,30 +1,26 @@
+// app/rules/page.tsx
 import type { Metadata } from 'next';
 import Header from '@/components/layout/Header';
+import RulesContent from '@/components/rules/RulesContent';
 
-export const metadata: Metadata = { title: 'Padel Rules' };
+export const metadata: Metadata = {
+  title: 'Padel Rules — PadelScorePro',
+  description:
+    'The complete padel rules guide. Court dimensions, scoring, serving, walls, deuce modes and common faults — fully updated for 2026.',
+};
 
 export default function RulesPage() {
   return (
-    <main className="bg-[#050505] min-h-screen antialiased">
+    <main
+      className="min-h-screen bg-[#050505] antialiased"
+      style={{
+        backgroundImage:
+          'linear-gradient(#111 1px,transparent 1px),linear-gradient(90deg,#111 1px,transparent 1px)',
+        backgroundSize: '20px 20px',
+      }}
+    >
       <Header />
-      <div className="flex flex-col items-center justify-center min-h-screen px-6 text-center">
-        <span className="font-display text-[11px] font-bold tracking-[0.16em] uppercase text-volt mb-4">
-          Coming Soon
-        </span>
-        <h1 className="font-display text-[48px] font-extrabold tracking-tight text-white leading-none mb-4">
-          Rules Guide
-        </h1>
-        <p className="text-white/40 text-[15px] max-w-md leading-relaxed">
-          A full illustrated padel rules guide is on the way. For now, the scoring app handles all
-          the rules automatically.
-        </p>
-        <a
-          href="/"
-          className="mt-8 inline-flex items-center gap-2 font-display text-[12px] font-bold tracking-[0.08em] uppercase text-white/30 hover:text-white/70 transition-colors"
-        >
-          ← Back home
-        </a>
-      </div>
+      <RulesContent />
     </main>
   );
 }
