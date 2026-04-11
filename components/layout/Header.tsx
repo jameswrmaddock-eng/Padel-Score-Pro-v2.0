@@ -61,7 +61,7 @@ export default function Header() {
       {/* CTA — Command C: flex-shrink-0 prevents it ever being crushed,
           icon + text are centered at all sizes */}
       <a
-        href="/log"
+        href="/score"
         className="
           flex-shrink-0
           inline-flex items-center justify-center gap-2
