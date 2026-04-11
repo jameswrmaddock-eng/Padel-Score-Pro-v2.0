@@ -14,7 +14,7 @@ interface ScoreScreenProps {
 export default function ScoreScreen({ state, onPoint, onUndo, canUndo, onReset }: ScoreScreenProps) {
   const {
     config, pointsA, pointsB, gamesA, gamesB, sets,
-    deuce, deuceAdvantage, inTiebreak, tbPointsA, tbPointsB, server,
+    deuce, deuceAdvantage, silverPointActive, inTiebreak, tbPointsA, tbPointsB, server,
   } = state;
 
   const servingName = getServingTeamName(state);
@@ -22,10 +22,10 @@ export default function ScoreScreen({ state, onPoint, onUndo, canUndo, onReset }
   // ── Point display labels ──────────────────────────────────────────────────
   const labelA = inTiebreak
     ? String(tbPointsA)
-    : getPointLabel(pointsA, deuce, deuceAdvantage, 'A');
+    : getPointLabel(pointsA, deuce, deuceAdvantage, 'A', silverPointActive);
   const labelB = inTiebreak
     ? String(tbPointsB)
-    : getPointLabel(pointsB, deuce, deuceAdvantage, 'B');
+    : getPointLabel(pointsB, deuce, deuceAdvantage, 'B', silverPointActive);
 
   // ── Colour logic ──────────────────────────────────────────────────────────
   // Points: volt for leader, white for both when tied
@@ -143,7 +143,7 @@ export default function ScoreScreen({ state, onPoint, onUndo, canUndo, onReset }
             style={{ animation: 'servePulse 1.8s ease-in-out infinite' }}
           />
           <span className="font-sans text-[11px] font-bold tracking-[0.1em] uppercase text-volt">
-            {inTiebreak ? 'Tiebreak' : 'Live'}
+            {inTiebreak ? 'Tiebreak' : silverPointActive ? 'Silver Point' : 'Live'}
           </span>
         </div>
         <span className="font-sans text-[11px] text-white/35 tracking-[0.04em]">

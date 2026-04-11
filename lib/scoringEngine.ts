@@ -1,12 +1,14 @@
 // lib/scoringEngine.ts
 // ─────────────────────────────────────────────────────────────────────────────
-// KEY FIX: The deuce condition is triggered when the SCORING player's points
-// will reach 40 (i.e. myPts is 2 OR 3) AND the opponent is already at 40
-// (oppPts === 3). This covers both:
-//   • 30-all → scorer hits 40 while opp already at 40  (myPts=2, oppPts=3)
-//   • 40-all edge case                                   (myPts=3, oppPts=3)
-// The state is updated to reflect both players at 40, deuce:true, then
-// the function returns immediately — no fall-through to winGame or increment.
+// Deuce modes:
+//   longDeuce   — advantage, then must win two clear. Repeats indefinitely.
+//   silverPoint — first deuce plays out with advantage (ADV / back to 40-40).
+//                 If it returns to 40-40, the NEXT point wins outright (silver).
+//   goldenPoint — 40-40 is reached, next single point wins immediately.
+//
+// silverPoint is tracked with `silverPointActive: boolean` added to MatchState.
+// When it's false, deuce plays like longDeuce (advantage first).
+// When it's true, the next point wins the game.
 // ─────────────────────────────────────────────────────────────────────────────
 
 export type DeuceMode    = 'longDeuce' | 'silverPoint' | 'goldenPoint';
@@ -27,27 +29,29 @@ export interface MatchConfig {
 export interface SetScore { a: number; b: number; }
 
 export interface MatchState {
-  config:         MatchConfig;
-  pointsA:        number;
-  pointsB:        number;
-  gamesA:         number;
-  gamesB:         number;
-  sets:           SetScore[];
-  inTiebreak:     boolean;
-  tbPointsA:      number;
-  tbPointsB:      number;
-  deuce:          boolean;
-  deuceAdvantage: Side | null;
-  server:         Side;
-  tbServeCount:   number;
-  winner:         Side | null;
-  matchLog:       string[];
+  config:              MatchConfig;
+  pointsA:             number;
+  pointsB:             number;
+  gamesA:              number;
+  gamesB:              number;
+  sets:                SetScore[];
+  inTiebreak:          boolean;
+  tbPointsA:           number;
+  tbPointsB:           number;
+  deuce:               boolean;
+  deuceAdvantage:      Side | null;
+  silverPointActive:   boolean;   // true = next point wins (silver point stage)
+  server:              Side;
+  tbServeCount:        number;
+  winner:              Side | null;
+  matchLog:            string[];
 }
 
 function randomSide(): Side { return Math.random() < 0.5 ? 'A' : 'B'; }
 function otherSide(s: Side): Side { return s === 'A' ? 'B' : 'A'; }
 function fmt(sets: SetScore[]): string { return sets.map(s => `${s.a}-${s.b}`).join(', '); }
 
+// ── Init ──────────────────────────────────────────────────────────────────────
 export function initMatch(config: MatchConfig): MatchState {
   const server: Side =
     config.firstServe === 'random' ? randomSide() : config.firstServe;
@@ -58,6 +62,7 @@ export function initMatch(config: MatchConfig): MatchState {
     sets: [],
     inTiebreak: false, tbPointsA: 0, tbPointsB: 0,
     deuce: false, deuceAdvantage: null,
+    silverPointActive: false,
     server,
     tbServeCount: 0,
     winner: null,
@@ -65,12 +70,14 @@ export function initMatch(config: MatchConfig): MatchState {
   };
 }
 
+// ── Public entry ──────────────────────────────────────────────────────────────
 export function scorePoint(state: MatchState, scorer: Side): MatchState {
   if (state.winner) return state;
   const s = { ...state, matchLog: [...state.matchLog] };
   return s.inTiebreak ? scoreTiebreakPoint(s, scorer) : scoreGamePoint(s, scorer);
 }
 
+// ── Game point ────────────────────────────────────────────────────────────────
 function scoreGamePoint(s: MatchState, scorer: Side): MatchState {
   const other  = otherSide(scorer);
   const myPts  = scorer === 'A' ? s.pointsA : s.pointsB;
@@ -78,55 +85,101 @@ function scoreGamePoint(s: MatchState, scorer: Side): MatchState {
 
   // ── Step 1: already in a deuce state ──────────────────────────────────────
   if (s.deuce) {
-    if (s.config.deuceMode === 'goldenPoint' || s.config.deuceMode === 'silverPoint') {
-      return winGame(s, scorer);
+    switch (s.config.deuceMode) {
+
+      case 'goldenPoint':
+        // Always one point wins
+        return winGame(s, scorer);
+
+      case 'silverPoint':
+        if (s.silverPointActive) {
+          // Silver point stage — next point wins outright
+          return winGame(s, scorer);
+        }
+        // Advantage stage (first deuce)
+        if (s.deuceAdvantage === scorer) {
+          // Had advantage → win game
+          return winGame(s, scorer);
+        }
+        if (s.deuceAdvantage === other) {
+          // Opponent had advantage → back to 40-40, NOW activate silver point
+          return {
+            ...s,
+            deuceAdvantage: null,
+            silverPointActive: true,
+            matchLog: [...s.matchLog, '40-40 — Silver Point!'],
+          };
+        }
+        // No advantage yet → give advantage
+        return {
+          ...s,
+          deuceAdvantage: scorer,
+          matchLog: [
+            ...s.matchLog,
+            `Advantage ${scorer === 'A' ? s.config.teamA : s.config.teamB}`,
+          ],
+        };
+
+      case 'longDeuce':
+      default:
+        if (s.deuceAdvantage === scorer) return winGame(s, scorer);
+        if (s.deuceAdvantage === other) {
+          return {
+            ...s,
+            deuceAdvantage: null,
+            matchLog: [...s.matchLog, 'Deuce'],
+          };
+        }
+        return {
+          ...s,
+          deuceAdvantage: scorer,
+          matchLog: [
+            ...s.matchLog,
+            `Advantage ${scorer === 'A' ? s.config.teamA : s.config.teamB}`,
+          ],
+        };
     }
-    // longDeuce
-    if (s.deuceAdvantage === scorer) return winGame(s, scorer);
-    if (s.deuceAdvantage === other)  return { ...s, deuceAdvantage: null, matchLog: [...s.matchLog, 'Deuce'] };
-    return {
-      ...s,
-      deuceAdvantage: scorer,
-      matchLog: [...s.matchLog, `Advantage ${scorer === 'A' ? s.config.teamA : s.config.teamB}`],
-    };
   }
 
-  // ── Step 2: will the scorer reach 40 while the opponent is at 40? ─────────
-  // myPts === 2 means this click takes them to 40 (index 3)
-  // myPts === 3 means they're already at 40 (shouldn't normally reach here but belt+braces)
+  // ── Step 2: scorer reaches 40 while opponent already at 40 → enter deuce ──
+  // myPts === 2: scorer goes from 30 → 40 this click
+  // myPts === 3: scorer already at 40 (belt + braces)
   const scorerReaches40 = myPts === 2 || myPts === 3;
 
   if (scorerReaches40 && oppPts === 3) {
-    // Both at 40 — enter deuce. Update pointsA/B so display shows 40-40.
     const newPointsA = scorer === 'A' ? 3 : s.pointsA;
     const newPointsB = scorer === 'B' ? 3 : s.pointsB;
 
-    if (s.config.deuceMode === 'goldenPoint') {
-      return {
-        ...s,
-        pointsA: newPointsA, pointsB: newPointsB,
-        deuce: true, deuceAdvantage: null,
-        matchLog: [...s.matchLog, 'Golden Point!'],
-      };
+    switch (s.config.deuceMode) {
+      case 'goldenPoint':
+        return {
+          ...s,
+          pointsA: newPointsA, pointsB: newPointsB,
+          deuce: true, deuceAdvantage: null, silverPointActive: false,
+          matchLog: [...s.matchLog, 'Golden Point!'],
+        };
+
+      case 'silverPoint':
+        // First deuce — play advantage out first
+        return {
+          ...s,
+          pointsA: newPointsA, pointsB: newPointsB,
+          deuce: true, deuceAdvantage: null, silverPointActive: false,
+          matchLog: [...s.matchLog, 'Deuce'],
+        };
+
+      case 'longDeuce':
+      default:
+        return {
+          ...s,
+          pointsA: newPointsA, pointsB: newPointsB,
+          deuce: true, deuceAdvantage: null, silverPointActive: false,
+          matchLog: [...s.matchLog, 'Deuce'],
+        };
     }
-    if (s.config.deuceMode === 'silverPoint') {
-      return {
-        ...s,
-        pointsA: newPointsA, pointsB: newPointsB,
-        deuce: true, deuceAdvantage: null,
-        matchLog: [...s.matchLog, 'Silver Point!'],
-      };
-    }
-    // longDeuce
-    return {
-      ...s,
-      pointsA: newPointsA, pointsB: newPointsB,
-      deuce: true, deuceAdvantage: null,
-      matchLog: [...s.matchLog, 'Deuce'],
-    };
   }
 
-  // ── Step 3: scorer at 40, opponent below 40 → win game ────────────────────
+  // ── Step 3: scorer at 40, opponent below → win game ───────────────────────
   if (myPts === 3) {
     return winGame(s, scorer);
   }
@@ -139,6 +192,7 @@ function scoreGamePoint(s: MatchState, scorer: Side): MatchState {
   };
 }
 
+// ── Win a game ────────────────────────────────────────────────────────────────
 function winGame(s: MatchState, winner: Side): MatchState {
   const newGamesA = winner === 'A' ? s.gamesA + 1 : s.gamesA;
   const newGamesB = winner === 'B' ? s.gamesB + 1 : s.gamesB;
@@ -147,13 +201,14 @@ function winGame(s: MatchState, winner: Side): MatchState {
     ...s,
     pointsA: 0, pointsB: 0,
     gamesA: newGamesA, gamesB: newGamesB,
-    deuce: false, deuceAdvantage: null,
+    deuce: false, deuceAdvantage: null, silverPointActive: false,
     server: otherSide(s.server),
     matchLog: [...s.matchLog, `Game ${teamName} (${newGamesA}-${newGamesB})`],
   };
   return checkSetEnd(ns);
 }
 
+// ── Set end check ─────────────────────────────────────────────────────────────
 function checkSetEnd(s: MatchState): MatchState {
   const { gamesA, gamesB, config } = s;
   const diff = Math.abs(gamesA - gamesB);
@@ -175,14 +230,15 @@ function checkSetEnd(s: MatchState): MatchState {
   }
 
   const w: Side | null =
-    gamesA >= 6 && diff >= 2  ? 'A' :
-    gamesB >= 6 && diff >= 2  ? 'B' :
+    gamesA >= 6 && diff >= 2     ? 'A' :
+    gamesB >= 6 && diff >= 2     ? 'B' :
     gamesA === 7 && gamesB === 6 ? 'A' :
     gamesB === 7 && gamesA === 6 ? 'B' : null;
 
   return w ? winSet(s, w) : s;
 }
 
+// ── Win a set ─────────────────────────────────────────────────────────────────
 function winSet(s: MatchState, winner: Side): MatchState {
   const newSet: SetScore = { a: s.gamesA, b: s.gamesB };
   const sets     = [...s.sets, newSet];
@@ -197,7 +253,7 @@ function winSet(s: MatchState, winner: Side): MatchState {
     gamesA: 0, gamesB: 0,
     pointsA: 0, pointsB: 0,
     inTiebreak: false, tbPointsA: 0, tbPointsB: 0,
-    deuce: false, deuceAdvantage: null,
+    deuce: false, deuceAdvantage: null, silverPointActive: false,
     matchLog: [...s.matchLog, `Set ${sets.length} → ${teamName} (${newSet.a}-${newSet.b})`],
   };
 
@@ -211,6 +267,7 @@ function winSet(s: MatchState, winner: Side): MatchState {
   return ns;
 }
 
+// ── Tiebreak point ────────────────────────────────────────────────────────────
 function scoreTiebreakPoint(s: MatchState, scorer: Side): MatchState {
   const newA     = scorer === 'A' ? s.tbPointsA + 1 : s.tbPointsA;
   const newB     = scorer === 'B' ? s.tbPointsB + 1 : s.tbPointsB;
@@ -232,13 +289,16 @@ function scoreTiebreakPoint(s: MatchState, scorer: Side): MatchState {
   return ns;
 }
 
+// ── Display helpers ───────────────────────────────────────────────────────────
 export function getPointLabel(
   pts: number,
   isDeuce: boolean,
   advantage: Side | null,
   side: Side,
+  silverPointActive: boolean,
 ): string {
   if (isDeuce) {
+    if (silverPointActive) return 'SP';   // Silver Point indicator
     if (advantage === side) return 'ADV';
     return '40';
   }
