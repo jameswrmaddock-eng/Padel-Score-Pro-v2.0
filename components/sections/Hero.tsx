@@ -4,7 +4,7 @@ import PhoneMockup from '@/components/sections/PhoneMockup';
 
 const STATS = [
   { num: '100%', label: 'Free forever'   },
-  { num: '3',    label: 'Deuce modes'    },
+  { num: '4',    label: 'Deuce modes'    },
   { num: '0',    label: 'Signups needed' },
 ];
 
