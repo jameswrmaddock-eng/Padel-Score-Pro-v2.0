@@ -19,6 +19,21 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${post.title} — PadelScorePro`,
     description: post.subtitle,
+    openGraph: {
+      title: `${post.title} — PadelScorePro`,
+      description: post.subtitle,
+      url: `https://www.padelscorepro.com/blog/${slug}`,
+      siteName: 'PadelScorePro',
+      locale: 'en_GB',
+      type: 'article',
+      images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: post.title }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${post.title} — PadelScorePro`,
+      description: post.subtitle,
+      images: ['/opengraph-image'],
+    },
   };
 }
 
@@ -28,9 +43,9 @@ export default async function BlogPostPage({ params }: Props) {
   if (!post) notFound();
 
   const CATEGORY_COLORS: Record<string, { bg: string; border: string; text: string }> = {
-    Rules:   { bg: 'rgba(204,255,0,0.1)',      border: 'rgba(204,255,0,0.2)',    text: '#CCFF00' },
-    Tactics: { bg: 'rgba(255,255,255,0.05)',   border: 'rgba(255,255,255,0.1)', text: 'rgba(255,255,255,0.5)' },
-    Gear:    { bg: 'rgba(255,255,255,0.05)',   border: 'rgba(255,255,255,0.1)', text: 'rgba(255,255,255,0.5)' },
+    Rules:   { bg: 'rgba(204,255,0,0.1)',    border: 'rgba(204,255,0,0.2)',    text: '#CCFF00' },
+    Tactics: { bg: 'rgba(255,255,255,0.05)', border: 'rgba(255,255,255,0.1)', text: 'rgba(255,255,255,0.5)' },
+    Gear:    { bg: 'rgba(255,255,255,0.05)', border: 'rgba(255,255,255,0.1)', text: 'rgba(255,255,255,0.5)' },
   };
   const cat = CATEGORY_COLORS[post.category] ?? CATEGORY_COLORS.Gear;
 
