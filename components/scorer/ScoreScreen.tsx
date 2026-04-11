@@ -151,7 +151,7 @@ export default function ScoreScreen({ state, onPoint, onUndo, canUndo, onReset }
 
   const {
     config, pointsA, pointsB, gamesA, gamesB, sets,
-    deuce, deuceAdvantage, silverPointActive, inTiebreak,
+    deuce, deuceAdvantage, silverPointActive, deuceCount, inTiebreak,
     tbPointsA, tbPointsB, server,
   } = state;
 
@@ -280,7 +280,7 @@ export default function ScoreScreen({ state, onPoint, onUndo, canUndo, onReset }
         <div className="flex items-center gap-2">
           <div className="serve-dot w-1.5 h-1.5 rounded-full bg-volt" />
           <span className="font-sans text-[11px] font-bold tracking-[0.1em] uppercase text-volt">
-            {inTiebreak ? 'Tiebreak' : (silverPointActive ? 'Silver Point' : 'Live')}
+            {inTiebreak ? 'Tiebreak' : (silverPointActive ? 'Silver Point' : (config.deuceMode === 'starPoint' && deuceCount >= 3 ? 'Star Point' : 'Live'))}
           </span>
         </div>
         <span className="font-sans text-[11px] text-white/35 tracking-[0.04em]">
