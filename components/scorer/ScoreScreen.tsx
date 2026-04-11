@@ -160,10 +160,10 @@ export default function ScoreScreen({ state, onPoint, onUndo, canUndo, onReset }
   // ── Point labels ──────────────────────────────────────────────────────────
   const labelA = inTiebreak
     ? String(tbPointsA)
-    : getPointLabel(pointsA, deuce, deuceAdvantage, 'A', silverPointActive ?? false);
+   : getPointLabel(pointsA, deuce, deuceAdvantage, 'A', silverPointActive ?? false, config.deuceMode, deuceCount);
   const labelB = inTiebreak
     ? String(tbPointsB)
-    : getPointLabel(pointsB, deuce, deuceAdvantage, 'B', silverPointActive ?? false);
+: getPointLabel(pointsB, deuce, deuceAdvantage, 'B', silverPointActive ?? false, config.deuceMode, deuceCount);
 
   // ── Colour logic: white default, volt when strictly leading ───────────────
   const ptLeadA = inTiebreak ? tbPointsA > tbPointsB : pointsA > pointsB;

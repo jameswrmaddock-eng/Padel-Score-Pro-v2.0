@@ -5,13 +5,16 @@
 //   silverPoint — first deuce plays out with advantage (ADV / back to 40-40).
 //                 If it returns to 40-40, the NEXT point wins outright (silver).
 //   goldenPoint — 40-40 is reached, next single point wins immediately.
+//   starPoint   — deuces 1 and 2 play out with normal advantage.
+//                 On the THIRD deuce, Star Point activates: server nominates
+//                 receiver, next single point wins the game outright.
 //
-// silverPoint is tracked with `silverPointActive: boolean` added to MatchState.
-// When it's false, deuce plays like longDeuce (advantage first).
-// When it's true, the next point wins the game.
+// silverPointActive: boolean — true = silver point stage (next point wins).
+// deuceCount: number        — increments on each new 40-40; resets on new game.
+//                             Star Point activates when deuceCount reaches 3.
 // ─────────────────────────────────────────────────────────────────────────────
 
-export type DeuceMode    = 'longDeuce' | 'silverPoint' | 'goldenPoint';
+export type DeuceMode    = 'longDeuce' | 'silverPoint' | 'goldenPoint' | 'starPoint';
 export type TiebreakMode = 'tiebreak' | 'playOn';
 export type MatchFormat  = 1 | 3;
 export type Side         = 'A' | 'B';
@@ -41,6 +44,7 @@ export interface MatchState {
   deuce:               boolean;
   deuceAdvantage:      Side | null;
   silverPointActive:   boolean;   // true = next point wins (silver point stage)
+  deuceCount:          number;    // counts 40-40 occurrences; resets on new game
   server:              Side;
   tbServeCount:        number;
   winner:              Side | null;
@@ -63,6 +67,7 @@ export function initMatch(config: MatchConfig): MatchState {
     inTiebreak: false, tbPointsA: 0, tbPointsB: 0,
     deuce: false, deuceAdvantage: null,
     silverPointActive: false,
+    deuceCount: 0,
     server,
     tbServeCount: 0,
     winner: null,
@@ -108,6 +113,42 @@ function scoreGamePoint(s: MatchState, scorer: Side): MatchState {
             deuceAdvantage: null,
             silverPointActive: true,
             matchLog: [...s.matchLog, '40-40 — Silver Point!'],
+          };
+        }
+        // No advantage yet → give advantage
+        return {
+          ...s,
+          deuceAdvantage: scorer,
+          matchLog: [
+            ...s.matchLog,
+            `Advantage ${scorer === 'A' ? s.config.teamA : s.config.teamB}`,
+          ],
+        };
+
+      case 'starPoint':
+        // Star Point activates on the THIRD deuce (deuceCount === 3).
+        // Deuces 1 and 2 behave identically to longDeuce (normal advantage).
+        if (s.deuceCount >= 3) {
+          // Sudden death — next point wins outright
+          return winGame(s, scorer);
+        }
+        // Normal advantage play (deuces 1 and 2)
+        if (s.deuceAdvantage === scorer) {
+          // Had advantage → win game
+          return winGame(s, scorer);
+        }
+        if (s.deuceAdvantage === other) {
+          // Opponent had advantage → back to 40-40, increment deuceCount
+          const newDeuceCount = s.deuceCount + 1;
+          const isStarPoint   = newDeuceCount >= 3;
+          return {
+            ...s,
+            deuceAdvantage: null,
+            deuceCount: newDeuceCount,
+            matchLog: [
+              ...s.matchLog,
+              isStarPoint ? '40-40 — Star Point!' : 'Deuce',
+            ],
           };
         }
         // No advantage yet → give advantage
@@ -168,6 +209,22 @@ function scoreGamePoint(s: MatchState, scorer: Side): MatchState {
           matchLog: [...s.matchLog, 'Deuce'],
         };
 
+      case 'starPoint': {
+        // First time reaching 40-40: deuceCount becomes 1
+        const newDeuceCount = s.deuceCount + 1;
+        const isStarPoint   = newDeuceCount >= 3;
+        return {
+          ...s,
+          pointsA: newPointsA, pointsB: newPointsB,
+          deuce: true, deuceAdvantage: null, silverPointActive: false,
+          deuceCount: newDeuceCount,
+          matchLog: [
+            ...s.matchLog,
+            isStarPoint ? '40-40 — Star Point!' : 'Deuce',
+          ],
+        };
+      }
+
       case 'longDeuce':
       default:
         return {
@@ -202,6 +259,7 @@ function winGame(s: MatchState, winner: Side): MatchState {
     pointsA: 0, pointsB: 0,
     gamesA: newGamesA, gamesB: newGamesB,
     deuce: false, deuceAdvantage: null, silverPointActive: false,
+    deuceCount: 0,           // reset for every new game
     server: otherSide(s.server),
     matchLog: [...s.matchLog, `Game ${teamName} (${newGamesA}-${newGamesB})`],
   };
@@ -254,6 +312,7 @@ function winSet(s: MatchState, winner: Side): MatchState {
     pointsA: 0, pointsB: 0,
     inTiebreak: false, tbPointsA: 0, tbPointsB: 0,
     deuce: false, deuceAdvantage: null, silverPointActive: false,
+    deuceCount: 0,           // reset for every new game (new set = new game)
     matchLog: [...s.matchLog, `Set ${sets.length} → ${teamName} (${newSet.a}-${newSet.b})`],
   };
 
@@ -296,9 +355,13 @@ export function getPointLabel(
   advantage: Side | null,
   side: Side,
   silverPointActive: boolean,
+  deuceMode?: DeuceMode,
+  deuceCount?: number,
 ): string {
   if (isDeuce) {
-    if (silverPointActive) return 'SP';   // Silver Point indicator
+    if (silverPointActive) return 'SP';
+    // Star Point: show 'SP' label on the third deuce
+    if (deuceMode === 'starPoint' && (deuceCount ?? 0) >= 3) return 'SP';
     if (advantage === side) return 'ADV';
     return '40';
   }
