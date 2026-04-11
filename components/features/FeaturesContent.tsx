@@ -146,13 +146,14 @@ function LiveTrackerVisual() {
       <div className="h-px mx-6 bg-white/[0.06]" />
 
       {/* Scores */}
-      <div className="grid grid-cols-2 gap-3 px-5 py-5 relative z-10">
+      <div className="grid gap-3 px-5 py-5 relative z-10" style={{ gridTemplateColumns: '1fr 1fr' }}>
         {/* Team A */}
         <div
           className="flex flex-col items-center rounded-2xl py-6 transition-all duration-500"
           style={{
             background:  aLeads ? 'rgba(204,255,0,0.05)' : 'rgba(255,255,255,0.02)',
-            border:      `1px solid ${aLeads ? 'rgba(204,255,0,0.2)' : 'rgba(255,255,255,0.07)'}`,
+            border:      `1px solid ${aLeads ? 'rgba(204,255,0,0.2)' : 'rgba(255,255,255,0.07)'}`
+,            overflow: 'hidden',
           }}
         >
           <div className="flex items-center gap-1.5 mb-2 h-4">
@@ -161,10 +162,12 @@ function LiveTrackerVisual() {
           </div>
           <p className="font-sans text-[10px] font-bold tracking-[0.1em] uppercase text-white/35 mb-2">Los Tigres</p>
           <p
-            className="font-sans font-black leading-none tracking-[-0.04em] transition-all duration-500"
+            className="font-sans font-black leading-none tracking-[-0.04em] transition-all duration-500 tabular-nums"
             style={{
               fontSize: '64px',
               color: isDeuce ? '#fff' : aLeads ? '#CCFF00' : '#ffffff',
+              width: '80px',
+              textAlign: 'center',
             }}
           >
             {isDeuce ? '40' : LABELS[pts.a]}
@@ -191,10 +194,12 @@ function LiveTrackerVisual() {
           <div className="h-4 mb-2" />
           <p className="font-sans text-[10px] font-bold tracking-[0.1em] uppercase text-white/35 mb-2">Raqueteros</p>
           <p
-            className="font-sans font-black leading-none tracking-[-0.04em] transition-all duration-500"
+            className="font-sans font-black leading-none tracking-[-0.04em] transition-all duration-500 tabular-nums"
             style={{
               fontSize: '64px',
               color: isDeuce ? '#fff' : bLeads ? '#CCFF00' : '#ffffff',
+              width: '80px',
+              textAlign: 'center',
             }}
           >
             {isDeuce ? '40' : LABELS[pts.b]}
