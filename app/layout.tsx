@@ -9,6 +9,9 @@ export const metadata: Metadata = {
   description:
     'Free real-time padel scoring app. Track matches, learn the rules, and play smarter. No account needed.',
   keywords: ['padel', 'score tracker', 'padel scoring', 'padel app', 'match tracker'],
+  verification: {
+    google: 'REn4WRJfp_EJFXYxc9vuA1IRuxgJozlE8UScmYYlOS8',
+  },
   metadataBase: new URL('https://www.padelscorepro.com'),
   openGraph: {
     title: 'PadelScorePro — The Smart Way to Track Padel Scores',
