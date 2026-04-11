@@ -1,9 +1,11 @@
+'use client';
+
 import PhoneMockup from '@/components/sections/PhoneMockup';
 
 const STATS = [
-  { num: '100%', label: 'Free forever' },
-  { num: '3',    label: 'Deuce modes'  },
-  { num: '0',    label: 'Signups needed' },
+  { num: '100%', label: 'Free forever'    },
+  { num: '3',    label: 'Deuce modes'     },
+  { num: '0',    label: 'Signups needed'  },
 ];
 
 export default function Hero() {
@@ -12,8 +14,6 @@ export default function Hero() {
       className="relative min-h-[calc(100vh-64px)] flex items-center overflow-hidden"
       aria-label="Hero"
     >
-      {/* ── 20px grid is applied on body in globals.css ── */}
-
       {/* Radial ambient light */}
       <div
         className="absolute inset-0 pointer-events-none"
@@ -35,10 +35,7 @@ export default function Hero() {
 
           {/* Eyebrow */}
           <div className="inline-flex items-center gap-2 mb-6">
-            <span
-              className="w-1.5 h-1.5 rounded-full bg-volt"
-              style={{ animation: 'livePulse 2s ease-in-out infinite' }}
-            />
+            <span className="w-1.5 h-1.5 rounded-full bg-volt hero-pulse" />
             <span className="font-sans text-[11px] font-bold tracking-[0.14em] uppercase text-volt">
               Performance Tracking · Free to use
             </span>
@@ -46,14 +43,12 @@ export default function Hero() {
 
           {/* Headline */}
           <h1 className="mb-7">
-            {/* Solid white line */}
             <span
               className="block font-sans font-black uppercase leading-[0.95] tracking-[-0.04em] text-white"
               style={{ fontSize: 'clamp(44px, 6.5vw, 88px)' }}
             >
               Track Every<br />Point.
             </span>
-            {/* Outline-only line */}
             <span
               className="block font-sans font-black uppercase leading-[0.95] tracking-[-0.04em]"
               style={{
@@ -76,25 +71,13 @@ export default function Hero() {
           {/* CTAs */}
           <div className="flex flex-wrap items-center gap-3.5 mb-12 max-sm:justify-center">
 
-            {/* Primary — solid volt with outer glow on hover */}
+            {/* Primary — volt glow handled entirely via CSS class */}
             <a
               href="/log"
-              className="inline-flex items-center gap-2
-                         bg-volt text-bg font-sans text-[13px] font-bold
+              className="hero-btn-primary inline-flex items-center gap-2
+                         bg-volt text-[#050505] font-sans text-[13px] font-bold
                          tracking-[0.08em] uppercase px-7 py-3.5 rounded-lg
-                         transition-all duration-300 ease-in-out
-                         hover:bg-[#d4ff1a] hover:-translate-y-0.5
-                         active:scale-[0.97]"
-              style={{
-                /* Hover shadow applied via CSS custom class in globals.css */
-              }}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLAnchorElement).style.boxShadow =
-                  '0 0 0 1px rgba(204,255,0,0.6), 0 0 24px rgba(204,255,0,0.45), 0 0 60px rgba(204,255,0,0.18), 0 0 100px rgba(204,255,0,0.08)';
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLAnchorElement).style.boxShadow = 'none';
-              }}
+                         transition-all duration-300 ease-in-out"
             >
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
                 <path
@@ -111,13 +94,11 @@ export default function Hero() {
             {/* Ghost — transparent with 1px white border */}
             <a
               href="#how-it-works"
-              className="inline-flex items-center gap-2
+              className="hero-btn-ghost inline-flex items-center gap-2
                          bg-transparent text-white/60 font-sans text-[13px] font-semibold
                          tracking-[0.04em] px-6 py-3.5 rounded-lg
                          border border-white/20
-                         transition-all duration-300 ease-in-out
-                         hover:border-white/50 hover:text-white/90 hover:bg-white/[0.04]
-                         hover:-translate-y-0.5 active:scale-[0.97]"
+                         transition-all duration-300 ease-in-out"
             >
               <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden>
                 <circle cx="6.5" cy="6.5" r="5" stroke="currentColor" strokeWidth="1.2" />
@@ -158,12 +139,32 @@ export default function Hero() {
 
       </div>
 
-      {/* Global keyframes */}
+      {/* Keyframes + hover styles — pure CSS, no JS event handlers */}
       <style>{`
-        @keyframes livePulse {
+        @keyframes heroPulse {
           0%,100% { opacity:1; transform:scale(1); }
           50%      { opacity:0.4; transform:scale(0.7); }
         }
+        .hero-pulse { animation: heroPulse 2s ease-in-out infinite; }
+
+        .hero-btn-primary:hover {
+          background: #d4ff1a;
+          transform: translateY(-2px);
+          box-shadow:
+            0 0 0 1px rgba(204,255,0,0.6),
+            0 0 24px rgba(204,255,0,0.45),
+            0 0 60px rgba(204,255,0,0.18),
+            0 0 100px rgba(204,255,0,0.08);
+        }
+        .hero-btn-primary:active { transform: scale(0.97); box-shadow: none; }
+
+        .hero-btn-ghost:hover {
+          border-color: rgba(255,255,255,0.5);
+          color: rgba(255,255,255,0.9);
+          background: rgba(255,255,255,0.04);
+          transform: translateY(-2px);
+        }
+        .hero-btn-ghost:active { transform: scale(0.97); }
       `}</style>
     </section>
   );
