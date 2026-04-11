@@ -88,7 +88,7 @@ export default function Hero() {
 
             {/* Primary — volt with glow */}
             <a
-              href="/log"
+              href="/score"
               className="hero-btn-primary inline-flex items-center justify-center gap-2
                          bg-volt text-[#050505] font-sans text-[13px] font-bold
                          tracking-[0.08em] uppercase px-7 py-3.5 rounded-lg
