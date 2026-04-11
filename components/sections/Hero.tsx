@@ -110,7 +110,7 @@ export default function Hero() {
 
             {/* Ghost — 1px white border */}
             <a
-              href="#how-it-works"
+              href="/score"
               className="hero-btn-ghost inline-flex items-center justify-center gap-2
                          bg-transparent text-white/60 font-sans text-[13px] font-semibold
                          tracking-[0.04em] px-6 py-3.5 rounded-lg
