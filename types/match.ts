@@ -1,58 +1,79 @@
-// ─────────────────────────────────────────────────────────────────────────────
 // types/match.ts
-//
-// Central type definitions. These are intentionally designed to mirror
-// the shape you would use in a Supabase table or Firestore document so
-// that the migration from local → cloud storage requires zero schema changes.
 // ─────────────────────────────────────────────────────────────────────────────
+// Universal Match schema. Identical shape across Website, iOS, Android,
+// and Apple Watch so every platform can write and read without conversion.
+//
+// Changes from v1:
+//   id          → UUID v4 string (was: number)
+//   created_at  → ISO 8601 string (new)
+//   last_modified → ISO 8601 string (was: number ms)
+//   device_id   → string (new — set on first app load, stored in localStorage)
+//   sync_status → 'pending' | 'synced' | 'error' (was: boolean isSynced)
+// ─────────────────────────────────────────────────────────────────────────────
+
+export type SyncStatus = 'pending' | 'synced' | 'error';
+
+export type MatchResult = 'W' | 'L' | 'D';
 
 export interface SetScore {
   a: number;
   b: number;
 }
 
-// ─── Sync Status ─────────────────────────────────────────────────────────────
-// isSynced: false  → persisted locally only, not yet written to the cloud
-// isSynced: true   → confirmed written to remote (Supabase / Firebase / etc.)
-//
-// On Day 1 every record will have isSynced: false because we have no remote.
-// On the day you wire up a backend, the upsert call flips this to true.
-// ─────────────────────────────────────────────────────────────────────────────
-export type SyncStatus = 'idle' | 'syncing' | 'synced' | 'error';
-
 export interface Match {
-  // ── Identity ────────────────────────────────────────────────────────────────
-  id: string;          // UUID — stable across local and remote
-  createdAt: number;   // Unix ms — used for ordering and conflict resolution
-  updatedAt: number;   // Updated on every mutation; cloud uses this for upsert ordering
+  // ── Identity ───────────────────────────────────────────────────────────────
+  id:            string;        // UUID v4 — safe for multi-device offline use
+  device_id:     string;        // which device created this match
 
-  // ── Match data ──────────────────────────────────────────────────────────────
-  teamA: string;
-  teamB: string;
-  sets: SetScore[];
-  winner: string;
-  location: string;
-  date: string;        // Human-readable: "5 Jul 2026"
+  // ── Teams ──────────────────────────────────────────────────────────────────
+  teamA:         string;
+  teamB:         string;
+  winner:        string | null;
 
-  // ── Sync ────────────────────────────────────────────────────────────────────
-  isSynced: boolean;         // false until a successful remote write is confirmed
-  syncStatus: SyncStatus;    // granular state for UI feedback
-  syncError?: string;        // last error message if syncStatus === 'error'
+  // ── Score ──────────────────────────────────────────────────────────────────
+  sets:          SetScore[];
+  format:        '1 Set' | 'Best of 3';
+  deuceMode:     'longDeuce' | 'silverPoint' | 'goldenPoint' | 'starPoint';
+
+  // ── Context ────────────────────────────────────────────────────────────────
+  location?:     string;
+  notes?:        string;
+
+  // ── Timestamps ─────────────────────────────────────────────────────────────
+  created_at:    string;        // ISO 8601 — when the match was started
+  last_modified: string;        // ISO 8601 — last write, used for conflict resolution
+
+  // ── Sync ───────────────────────────────────────────────────────────────────
+  sync_status:   SyncStatus;    // 'pending' until confirmed by cloud
 }
 
-// ─── Hook return shape ───────────────────────────────────────────────────────
-export interface UseSyncDataReturn {
-  matches: Match[];
-  isLoading: boolean;
-  isSyncing: boolean;
-  saveMatch: (payload: NewMatchPayload) => Promise<Match>;
-  deleteMatch: (id: string) => Promise<void>;
-  syncAll: () => Promise<void>;         // manually re-attempt sync for all un-synced records
-  clearAll: () => Promise<void>;
-  pendingCount: number;                 // how many records are isSynced: false
-}
+// Helper — builds a new match shell with all required fields pre-filled
+// Call this when starting a match instead of constructing the object manually
+export function createMatchShell(
+  teamA: string,
+  teamB: string,
+  format: Match['format'],
+  deuceMode: Match['deuceMode'],
+  deviceId: string,
+): Omit<Match, 'sets' | 'winner'> {
+  const now = new Date().toISOString();
+  // Inline UUID generation to avoid circular imports
+  const id = typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function'
+    ? crypto.randomUUID()
+    : 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+        const r = (Math.random() * 16) | 0;
+        return (c === 'x' ? r : (r & 0x3) | 0x8).toString(16);
+      });
 
-// ─── Input type (what callers pass to saveMatch) ─────────────────────────────
-export type NewMatchPayload = Pick<Match,
-  'teamA' | 'teamB' | 'sets' | 'location'
->;
+  return {
+    id,
+    device_id:     deviceId,
+    teamA,
+    teamB,
+    format,
+    deuceMode,
+    created_at:    now,
+    last_modified: now,
+    sync_status:   'pending',
+  };
+}
