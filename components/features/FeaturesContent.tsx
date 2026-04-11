@@ -131,16 +131,16 @@ function LiveTrackerVisual() {
         }}
       />
 
-      {/* Status bar */}
+      {/* Status bar — all three slots are fixed width so label changes never shift layout */}
       <div className="flex items-center justify-between px-6 pt-6 pb-3 relative z-10">
-        <div className="flex items-center gap-2">
-          <div className="w-1.5 h-1.5 rounded-full bg-volt" style={{ animation: 'livePulse 1.8s ease-in-out infinite' }} />
+        <div className="flex items-center gap-2" style={{ width: '64px' }}>
+          <div className="w-1.5 h-1.5 rounded-full bg-volt flex-shrink-0" style={{ animation: 'livePulse 1.8s ease-in-out infinite' }} />
           <span className="font-sans text-[10px] font-bold tracking-[0.12em] uppercase text-volt">
             {isDeuce ? 'Deuce' : 'Live'}
           </span>
         </div>
-        <span className="font-mono text-[10px] text-white/25">Set 1 · Game 4</span>
-        <div className="flex items-center gap-1.5">
+        <span className="font-mono text-[10px] text-white/25 text-center" style={{ width: '100px' }}>Set 1 · Game 4</span>
+        <div className="flex items-center justify-end" style={{ width: '64px' }}>
           <span className="font-sans text-[9px] text-white/20 uppercase tracking-[0.08em]">Long Deuce</span>
         </div>
       </div>
