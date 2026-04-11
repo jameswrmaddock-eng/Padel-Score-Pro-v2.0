@@ -119,6 +119,8 @@ function LiveTrackerVisual() {
         background: '#070d12',
         border: '1px solid rgba(255,255,255,0.1)',
         boxShadow: '0 0 80px rgba(204,255,0,0.08), 0 40px 80px rgba(0,0,0,0.6)',
+        width: '300px',
+        flexShrink: 0,
       }}
     >
       {/* Volt glow behind */}
