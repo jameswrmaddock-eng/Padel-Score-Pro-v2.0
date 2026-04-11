@@ -84,7 +84,7 @@ export default function Hero() {
           </p>
 
           {/* CTAs */}
-          <div className="flex flex-wrap items-center gap-3.5 mb-12 max-sm:justify-center">
+        
 
             {/* Primary — volt with glow */}
             <a
