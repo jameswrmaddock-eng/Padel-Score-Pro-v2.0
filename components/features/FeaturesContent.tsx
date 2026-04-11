@@ -48,14 +48,15 @@ function Counter({ to, suffix = '', duration = 1800 }: { to: number; suffix?: st
 
 // ── Fade-in-up wrapper ────────────────────────────────────────────────────────
 function Reveal({
-  children, delay = 0, className = '',
-}: { children: React.ReactNode; delay?: number; className?: string }) {
+  children, delay = 0, className = '', style = {} as React.CSSProperties,
+}: { children: React.ReactNode; delay?: number; className?: string; style?: React.CSSProperties }) {
   const { ref, visible } = useReveal();
   return (
     <div
       ref={ref}
       className={className}
       style={{
+        ...style,
         opacity:    visible ? 1 : 0,
         transform:  visible ? 'translateY(0)' : 'translateY(28px)',
         transition: `opacity 0.7s ease ${delay}s, transform 0.7s ease ${delay}s`,
