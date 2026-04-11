@@ -4,16 +4,17 @@ import { notFound } from 'next/navigation';
 import Header from '@/components/layout/Header';
 import { BLOG_POSTS, getPostBySlug } from '@/data/blogPosts';
 
-interface Props {
-  params: { slug: string };
-}
+type Props = {
+  params: Promise<{ slug: string }>;
+};
 
 export function generateStaticParams() {
   return BLOG_POSTS.map((p) => ({ slug: p.slug }));
 }
 
-export function generateMetadata({ params }: Props): Metadata {
-  const post = getPostBySlug(params.slug);
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const post = getPostBySlug(slug);
   if (!post) return { title: 'Post not found' };
   return {
     title: `${post.title} — PadelScorePro`,
@@ -21,14 +22,15 @@ export function generateMetadata({ params }: Props): Metadata {
   };
 }
 
-export default function BlogPostPage({ params }: Props) {
-  const post = getPostBySlug(params.slug);
+export default async function BlogPostPage({ params }: Props) {
+  const { slug } = await params;
+  const post = getPostBySlug(slug);
   if (!post) notFound();
 
   const CATEGORY_COLORS: Record<string, { bg: string; border: string; text: string }> = {
-    Rules:   { bg: 'rgba(204,255,0,0.1)', border: 'rgba(204,255,0,0.2)',    text: '#CCFF00' },
-    Tactics: { bg: 'rgba(255,255,255,0.05)', border: 'rgba(255,255,255,0.1)', text: 'rgba(255,255,255,0.5)' },
-    Gear:    { bg: 'rgba(255,255,255,0.05)', border: 'rgba(255,255,255,0.1)', text: 'rgba(255,255,255,0.5)' },
+    Rules:   { bg: 'rgba(204,255,0,0.1)',      border: 'rgba(204,255,0,0.2)',    text: '#CCFF00' },
+    Tactics: { bg: 'rgba(255,255,255,0.05)',   border: 'rgba(255,255,255,0.1)', text: 'rgba(255,255,255,0.5)' },
+    Gear:    { bg: 'rgba(255,255,255,0.05)',   border: 'rgba(255,255,255,0.1)', text: 'rgba(255,255,255,0.5)' },
   };
   const cat = CATEGORY_COLORS[post.category] ?? CATEGORY_COLORS.Gear;
 
@@ -80,8 +82,11 @@ export default function BlogPostPage({ params }: Props) {
           </p>
         </header>
 
-        {/* Divider */}
-        <div className="h-px mb-10" style={{ background: 'linear-gradient(90deg,rgba(204,255,0,0.2),rgba(255,255,255,0.06),transparent)' }} />
+        {/* Volt divider */}
+        <div
+          className="h-px mb-10"
+          style={{ background: 'linear-gradient(90deg,rgba(204,255,0,0.25),rgba(255,255,255,0.06),transparent)' }}
+        />
 
         {/* Intro */}
         <p className="font-sans text-[16px] text-white/65 leading-[1.75] mb-10 font-medium">
@@ -122,7 +127,7 @@ export default function BlogPostPage({ params }: Props) {
             </div>
             <a
               href={post.cta.href}
-              className="inline-flex items-center gap-2 font-sans text-[13px] font-bold tracking-[0.08em] uppercase px-6 py-3.5 rounded-xl no-underline post-cta-btn"
+              className="post-cta-btn inline-flex items-center gap-2 font-sans text-[13px] font-bold tracking-[0.08em] uppercase px-6 py-3.5 rounded-xl no-underline"
               style={{ background: '#CCFF00', color: '#050505', transition: 'all 0.3s ease' }}
             >
               <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden>
@@ -133,7 +138,7 @@ export default function BlogPostPage({ params }: Props) {
           </div>
         )}
 
-        {/* Back to blog */}
+        {/* Back */}
         <div className="mt-12 pt-8 border-t border-white/[0.06]">
           <a
             href="/blog"
