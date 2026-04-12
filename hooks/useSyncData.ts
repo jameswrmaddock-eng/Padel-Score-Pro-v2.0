@@ -14,11 +14,8 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Match }                             from '@/types/match';
 
-// ── Day 1: local ──────────────────────────────────────────────────────────────
-import * as adapter from './localStorageAdapter';
-
-// ── Day 2: swap to this ───────────────────────────────────────────────────────
-// import * as adapter from './supabaseAdapter';
+// ── Day 2: cloud ─────────────────────────────────────────────────────────────
+import * as adapter from './supabaseAdapter';
 
 export interface UseSyncDataReturn {
   matches:     Match[];
