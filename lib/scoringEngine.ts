@@ -343,7 +343,12 @@ function scoreTiebreakPoint(s: MatchState, scorer: Side): MatchState {
   const leader: Side | null = newA > newB ? 'A' : newB > newA ? 'B' : null;
 
   if (leader && (newA >= 7 || newB >= 7) && diff >= 2) {
-    return winSet({ ...ns, inTiebreak: false }, leader);
+    return winSet({
+      ...ns,
+      inTiebreak: false,
+      gamesA: leader === 'A' ? ns.gamesA + 1 : ns.gamesA,
+      gamesB: leader === 'B' ? ns.gamesB + 1 : ns.gamesB,
+    }, leader);
   }
   return ns;
 }
