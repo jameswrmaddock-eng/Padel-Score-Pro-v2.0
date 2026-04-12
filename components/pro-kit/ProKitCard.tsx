@@ -70,7 +70,7 @@ export default function ProKitCard({ product, index = 0 }: ProKitCardProps) {
         {/* Editor's pick badge */}
         {featured && (
           <span className="absolute top-3 left-3.5 font-display text-[9px] font-bold tracking-[0.12em] uppercase text-[#050505] bg-volt px-2 py-[3px] rounded-full">
-            Editor's pick
+            Editor&apos;s pick
           </span>
         )}
 

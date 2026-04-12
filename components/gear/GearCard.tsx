@@ -3,7 +3,7 @@
 
 import Image from 'next/image';
 import { useState } from 'react';
-import { GearProduct, getAmazonUrl, getAmazonSearchUrl } from '@/data/gearData';
+import { GearProduct, getAmazonSearchUrl } from '@/data/gearData';
 import RacketIllustration from './RacketIllustration';
 
 interface GearCardProps {
@@ -90,7 +90,7 @@ export default function GearCard({ product, animDelay = 0 }: GearCardProps) {
         <div className="flex items-center justify-between mb-1">
           {product.featured ? (
             <span className="font-sans text-[9px] font-bold tracking-[0.12em] uppercase px-2.5 py-1 rounded-full bg-volt text-[#050505]">
-              Editor's Pick
+              Editor&apos;s Pick
             </span>
           ) : (
             <span className="font-sans text-[9px] font-bold tracking-[0.12em] uppercase px-2.5 py-1 rounded-full bg-white/[0.05] border border-white/[0.08] text-white/30">

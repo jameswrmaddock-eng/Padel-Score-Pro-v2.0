@@ -103,7 +103,7 @@ export async function readAll(): Promise<Match[]> {
 }
 
 // ─── upsertOne ────────────────────────────────────────────────────────────────
-export async function upsertOne(match: Match): Promise<Match> {
+export async function upsertOne(_match: Match): Promise<Match> {
   throw new Error('[supabaseAdapter] Not yet activated.');
 
   // UNCOMMENT WHEN READY:
@@ -116,7 +116,7 @@ export async function upsertOne(match: Match): Promise<Match> {
 }
 
 // ─── deleteOne ────────────────────────────────────────────────────────────────
-export async function deleteOne(id: string): Promise<void> {
+export async function deleteOne(_id: string): Promise<void> {
   throw new Error('[supabaseAdapter] Not yet activated.');
 
   // UNCOMMENT WHEN READY:

@@ -69,7 +69,7 @@ function WhatsAppIcon() {
   );
 }
 
-export default function MatchCard({ match, myTeam, featured = false, animDelay = 0 }: MatchCardProps) {
+export default function MatchCard({ match, featured = false, animDelay = 0 }: MatchCardProps) {
   const [shareState, setShareState] = useState<'idle' | 'shared'>('idle');
 
   const winner = deriveWinner(match);

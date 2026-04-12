@@ -8,7 +8,7 @@ import ScoreScreen  from './ScoreScreen';
 import WinnerScreen from './WinnerScreen';
 
 export default function MatchScorer() {
-  const { state, history, startMatch, addPoint, undo, resetMatch, canUndo } = useScorer();
+  const { state, startMatch, addPoint, undo, resetMatch, canUndo } = useScorer();
 
   return (
     <div

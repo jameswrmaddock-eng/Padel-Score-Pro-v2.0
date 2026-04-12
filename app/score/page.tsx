@@ -28,7 +28,7 @@ export default function ScorePage() {
           Score a Match
         </h1>
         <p className="font-sans text-[14px] text-white/40 leading-relaxed">
-          Set up your teams, pick your format, and tap to score. Exactly what's in the app.
+          Set up your teams, pick your format, and tap to score. Exactly what&apos;s in the app.
         </p>
       </div>
 

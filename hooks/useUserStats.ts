@@ -36,7 +36,7 @@ import { LOCAL_PLAYER_STATS } from '@/data/playerData';
 //   }
 // }
 
-export function useUserStats(userId?: string): UseUserStatsReturn {
+export function useUserStats(_userId?: string): UseUserStatsReturn {
   const [stats, setStats] = useState<PlayerStats | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
@@ -60,7 +60,7 @@ export function useUserStats(userId?: string): UseUserStatsReturn {
     } finally {
       setIsLoading(false);
     }
-  }, [userId]);
+  }, []);
 
   useEffect(() => { fetchStats(); }, [fetchStats]);
 

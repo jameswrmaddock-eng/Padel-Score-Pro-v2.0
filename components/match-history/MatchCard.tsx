@@ -49,7 +49,7 @@ function TrophyIcon() {
   );
 }
 
-export default function MatchCard({ match, myTeam, featured = false, style }: MatchCardProps) {
+export default function MatchCard({ match, featured = false, style }: MatchCardProps) {
   const [shareState, setShareState] = useState<'idle' | 'shared'>('idle');
 
   const teamAWins = match.sets.filter((s) => s.a > s.b).length;

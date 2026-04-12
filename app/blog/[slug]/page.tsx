@@ -2,6 +2,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Header from '@/components/layout/Header';
+import Link from 'next/link';
 import { BLOG_POSTS, getPostBySlug } from '@/data/blogPosts';
 
 type Props = {
@@ -62,7 +63,7 @@ export default async function BlogPostPage({ params }: Props) {
       <article className="max-w-[720px] mx-auto px-10 py-16 max-sm:px-5 max-sm:py-10">
 
         {/* Back link */}
-        <a
+        <Link
           href="/blog"
           className="inline-flex items-center gap-2 font-sans text-[11px] font-bold tracking-[0.08em] uppercase text-white/30 hover:text-white/70 transition-colors duration-200 mb-10 no-underline"
         >
@@ -70,7 +71,7 @@ export default async function BlogPostPage({ params }: Props) {
             <path d="M9 6H3M3 6l3-3M3 6l3 3" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
           All posts
-        </a>
+        </Link>
 
         {/* Header */}
         <header className="mb-10">
@@ -155,7 +156,7 @@ export default async function BlogPostPage({ params }: Props) {
 
         {/* Back */}
         <div className="mt-12 pt-8 border-t border-white/[0.06]">
-          <a
+          <Link
             href="/blog"
             className="inline-flex items-center gap-2 font-sans text-[12px] font-bold tracking-[0.06em] uppercase text-white/30 hover:text-white/70 transition-colors duration-200 no-underline"
           >
@@ -163,7 +164,7 @@ export default async function BlogPostPage({ params }: Props) {
               <path d="M9 6H3M3 6l3-3M3 6l3 3" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
             Back to all posts
-          </a>
+          </Link>
         </div>
 
         <style>{`

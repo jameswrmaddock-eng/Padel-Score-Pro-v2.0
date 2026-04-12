@@ -1,6 +1,7 @@
 'use client';
 // components/features/FeaturesContent.tsx
 
+import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 
 // ── Scroll-reveal hook ────────────────────────────────────────────────────────
@@ -390,7 +391,7 @@ function ShareVisual() {
           <div className="h-px bg-white/[0.06] mb-3" />
 
           <p className="font-sans text-[9px] text-white/25 leading-relaxed">
-            "Great match — solid performance at the net throughout."
+            &quot;Great match — solid performance at the net throughout.&quot;
           </p>
         </div>
 
@@ -521,7 +522,7 @@ export default function FeaturesContent() {
                   everything — points, games, sets, serve rotation, and deuce in every format.
                 </p>
                 <p className="font-sans text-[13px] text-white/30 leading-relaxed italic mb-8">
-                  "Precision at your fingertips. No accounts. No friction. Just play."
+                  &quot;Precision at your fingertips. No accounts. No friction. Just play.&quot;
                 </p>
                 <div className="rounded-xl overflow-hidden border border-white/[0.06]" style={{ background: 'rgba(255,255,255,0.02)' }}>
                   <Spec label="Engineered for" value="iPhone · Android · Web" />
@@ -638,7 +639,7 @@ export default function FeaturesContent() {
                   Affiliate links — we earn a small commission at no cost to you.
                   Keeps PadelScorePro free forever.
                 </p>
-                <a
+                <Link
                   href="/#gear"
                   className="features-cta inline-flex items-center gap-2 font-sans text-[13px] font-bold tracking-[0.08em] uppercase px-6 py-3.5 rounded-xl w-fit"
                   style={{ background: '#CCFF00', color: '#050505', transition: 'all 0.3s ease' }}
@@ -647,7 +648,7 @@ export default function FeaturesContent() {
                     <path d="M2 9.5L9 2.5M9 2.5H3.5M9 2.5V8" stroke="#050505" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
                   View full gear guide
-                </a>
+                </Link>
               </Reveal>
             </div>
 

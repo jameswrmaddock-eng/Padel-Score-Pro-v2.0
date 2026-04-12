@@ -131,7 +131,7 @@ function AnimatedScore({
       }, 120);
       return () => clearTimeout(t);
     }
-  }, [value, undoKey]);
+  }, [value, undoKey, displayed]);
 
   const isAdv = displayed === 'ADV';
 
