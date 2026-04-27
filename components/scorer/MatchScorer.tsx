@@ -2,13 +2,34 @@
 // components/scorer/MatchScorer.tsx
 // Orchestrates Setup → Live → Winner flow.
 
-import { useScorer } from '@/hooks/useScorer';
-import SetupScreen  from './SetupScreen';
-import ScoreScreen  from './ScoreScreen';
-import WinnerScreen from './WinnerScreen';
+import { useEffect, useRef } from 'react';
+import { useScorer }         from '@/hooks/useScorer';
+import { useSyncData }       from '@/hooks/useSyncData';
+import SetupScreen           from './SetupScreen';
+import ScoreScreen           from './ScoreScreen';
+import WinnerScreen          from './WinnerScreen';
 
 export default function MatchScorer() {
   const { state, startMatch, addPoint, undo, resetMatch, canUndo } = useScorer();
+  const { saveMatch } = useSyncData();
+  const savedRef = useRef<string | null>(null);
+
+  useEffect(() => {
+    if (!state?.winner) return;
+    const matchId = state.config.teamA + '|' + state.config.teamB + '|' + state.sets.map(s => `${s.a}-${s.b}`).join(',');
+    if (savedRef.current === matchId) return;
+    savedRef.current = matchId;
+
+    const winnerName = state.winner === 'A' ? state.config.teamA : state.config.teamB;
+    saveMatch({
+      teamA:     state.config.teamA,
+      teamB:     state.config.teamB,
+      winner:    winnerName,
+      sets:      state.sets,
+      format:    state.config.format === 1 ? '1 Set' : 'Best of 3',
+      deuceMode: state.config.deuceMode,
+    });
+  }, [state?.winner, state, saveMatch]);
 
   return (
     <div
@@ -40,9 +61,10 @@ export default function MatchScorer() {
               {state.config.format === 1 ? '1 Set' : 'Best of 3'}
             </p>
             <p className="font-sans text-[10px] text-white/25 uppercase tracking-[0.06em]">
-              {state.config.deuceMode === 'longDeuce' ? 'Long Deuce'
+              {state.config.deuceMode === 'longDeuce'    ? 'Long Deuce'
                 : state.config.deuceMode === 'silverPoint' ? 'Silver Pt'
-                : 'Golden Pt'}
+                : state.config.deuceMode === 'goldenPoint' ? 'Golden Pt'
+                : 'Star Point'}
             </p>
           </div>
         )}
