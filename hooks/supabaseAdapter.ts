@@ -37,15 +37,29 @@
 //
 // ─────────────────────────────────────────────────────────────────────────────
 
-import { createClient } from '@supabase/supabase-js';
+import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { Match, SetScore, SyncStatus } from '@/types/match';
 import { generateUUID, nowISO } from '@/utils/uuid';
 import { getDeviceId } from '@/utils/deviceId';
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-);
+let _client: SupabaseClient | null = null;
+
+function getClient(): SupabaseClient {
+  if (_client) return _client;
+
+  const url  = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key  = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+  if (!url || !key) {
+    throw new Error(
+      'Supabase is not configured. Set NEXT_PUBLIC_SUPABASE_URL and ' +
+      'NEXT_PUBLIC_SUPABASE_ANON_KEY in your environment.',
+    );
+  }
+
+  _client = createClient(url, key);
+  return _client;
+}
 
 // ─── Column mapping helpers ───────────────────────────────────────────────────
 
@@ -88,7 +102,7 @@ function fromRow(row: Record<string, unknown>): Match {
 // ─── readAll ──────────────────────────────────────────────────────────────────
 
 export async function readAll(): Promise<Match[]> {
-  const { data, error } = await supabase
+  const { data, error } = await getClient()
     .from('matches')
     .select('*')
     .order('created_at', { ascending: false });
@@ -125,7 +139,7 @@ export async function upsertOne(
     notes:         match.notes,
   };
 
-  const { error } = await supabase
+  const { error } = await getClient()
     .from('matches')
     .upsert(toRow(full), { onConflict: 'id' });
 
@@ -137,7 +151,7 @@ export async function upsertOne(
 // ─── deleteOne ────────────────────────────────────────────────────────────────
 
 export async function deleteOne(id: string): Promise<void> {
-  const { error } = await supabase
+  const { error } = await getClient()
     .from('matches')
     .delete()
     .eq('id', id);
@@ -149,7 +163,7 @@ export async function deleteOne(id: string): Promise<void> {
 // Deletes only the current user's rows — Row Level Security enforces this.
 
 export async function clearAll(): Promise<void> {
-  const { error } = await supabase
+  const { error } = await getClient()
     .from('matches')
     .delete()
     .neq('id', '');
