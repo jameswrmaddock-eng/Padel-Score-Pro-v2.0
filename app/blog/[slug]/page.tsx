@@ -35,6 +35,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: post.subtitle,
       images: ['/opengraph-image'],
     },
+    alternates: { canonical: `https://www.padelscorepro.com/blog/${slug}` },
   };
 }
 

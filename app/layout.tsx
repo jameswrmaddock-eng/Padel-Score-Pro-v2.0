@@ -13,6 +13,7 @@ export const metadata: Metadata = {
     google: 'REn4WRJfp_EJFXYxc9vuA1IRuxgJozlE8UScmYYlOS8',
   },
   metadataBase: new URL('https://www.padelscorepro.com'),
+  alternates: { canonical: 'https://www.padelscorepro.com' },
   openGraph: {
     title: 'PadelScorePro — The Smart Way to Track Padel Scores',
     description: 'Free real-time padel scoring. All deuce modes, tiebreak, match history. No account needed.',
