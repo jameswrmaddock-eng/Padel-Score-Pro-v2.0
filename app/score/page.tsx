@@ -3,6 +3,8 @@ import type { Metadata } from 'next';
 import Header       from '@/components/layout/Header';
 import MatchScorer  from '@/components/scorer/MatchScorer';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: 'Score a Match — PadelScorePro',
   description: 'Track your padel match in real time. Free, no account needed.',
