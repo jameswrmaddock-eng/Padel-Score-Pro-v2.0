@@ -367,7 +367,7 @@ export function getPointLabel(
     if (silverPointActive) return 'SP';
     // Star Point: show 'SP' label on the third deuce
     if (deuceMode === 'starPoint' && (deuceCount ?? 0) >= 3) return 'SP';
-    if (advantage === side) return 'ADV';
+    if (advantage === side) return 'AD';
     return '40';
   }
   return ['0', '15', '30', '40'][pts] ?? '0';
