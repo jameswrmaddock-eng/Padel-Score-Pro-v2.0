@@ -46,12 +46,12 @@ export default function MatchScorer() {
           <div className="flex items-center gap-2 mb-0.5">
             <span className="w-1.5 h-1.5 rounded-full bg-volt"
                   style={{ animation: 'scorerPulse 2s ease-in-out infinite' }} />
-            <span className="font-sans text-[10px] font-bold tracking-[0.14em] uppercase text-volt">
+            <span className="font-sans text-[10px] font-bold tracking-[0.14em] uppercase text-white">
               {state?.winner ? 'Match Over' : state ? 'Live Match' : 'New Match'}
             </span>
           </div>
-          <h2 className="font-sans text-[20px] font-black tracking-[-0.02em] text-white leading-none uppercase">
-            Score Tracker
+          <h2 className="font-sans text-[20px] font-black tracking-[-0.02em] text-volt leading-none uppercase">
+            {state ? 'Score Tracker' : 'Match Settings'}
           </h2>
         </div>
 

@@ -72,18 +72,37 @@ export default function SetupScreen({ onStart }: SetupScreenProps) {
       </OptionRow>
 
       {/* Deuce */}
-      <OptionRow label="Deuce Mode">
-        {([
-          ['longDeuce',   'Long Deuce'],
-          ['silverPoint', 'Silver Point'],
-          ['goldenPoint', 'Golden Point'],
-          ['starPoint',   'Star Point'],
-        ] as [DeuceMode, string][]).map(([val, label]) => (
-          <button key={val} className={deuceMode === val ? PILL_ON : PILL_OFF} onClick={() => setDeuceMode(val)}>
-            {label}
-          </button>
-        ))}
-      </OptionRow>
+      <div className="flex flex-col gap-2.5">
+        <span className="text-[10px] font-bold tracking-[0.12em] uppercase text-white/55">Deuce Mode</span>
+        <div className="flex flex-col gap-2">
+          {([
+            ['longDeuce',   'Long Deuce',   'Classic — repeats until one team leads by 2 points'],
+            ['silverPoint', 'Silver Point', 'One deuce with advantage, then sudden-death decides'],
+            ['goldenPoint', 'Golden Point', 'No deuce — first to score at 40–40 wins the game'],
+            ['starPoint',   'Star Point',   'Three deuces with advantage, then sudden-death on the third'],
+          ] as [DeuceMode, string, string][]).map(([val, title, desc]) => (
+            <div
+              key={val}
+              onClick={() => setDeuceMode(val)}
+              className={[
+                'w-full rounded-xl border px-4 py-3 cursor-pointer flex flex-row items-start gap-3 transition-all duration-150',
+                deuceMode === val
+                  ? 'border-volt bg-volt/[0.04]'
+                  : 'border-white/10 bg-white/[0.02]',
+              ].join(' ')}
+            >
+              <div className={[
+                'w-4 h-4 rounded-full border-2 mt-0.5 shrink-0',
+                deuceMode === val ? 'border-volt bg-volt' : 'border-white/20',
+              ].join(' ')} />
+              <div className="flex flex-col">
+                <span className="text-[13px] font-bold text-white">{title}</span>
+                <span className="text-[11px] text-white/55 mt-0.5">{desc}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
 
       {/* Tiebreak */}
       <OptionRow label="At 6-6">
