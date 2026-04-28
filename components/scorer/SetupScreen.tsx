@@ -105,10 +105,35 @@ export default function SetupScreen({ onStart }: SetupScreenProps) {
       </div>
 
       {/* Tiebreak */}
-      <OptionRow label="At 6-6">
-        <button className={tiebreak === 'tiebreak' ? PILL_ON : PILL_OFF} onClick={() => setTiebreak('tiebreak')}>Tiebreak</button>
-        <button className={tiebreak === 'playOn'   ? PILL_ON : PILL_OFF} onClick={() => setTiebreak('playOn')}>Play On</button>
-      </OptionRow>
+      <div className="flex flex-col gap-2.5">
+        <span className="text-[10px] font-bold tracking-[0.12em] uppercase text-white/55">At 6-6</span>
+        <div className="flex flex-col gap-2">
+          {([
+            ['tiebreak', 'Tiebreak', 'Play a tiebreak to 7 points at 6–6 (win by 2)'],
+            ['playOn',   'Play On',  'Continue until one team leads by 2 games'],
+          ] as [TiebreakMode, string, string][]).map(([val, title, desc]) => (
+            <div
+              key={val}
+              onClick={() => setTiebreak(val)}
+              className={[
+                'w-full rounded-xl border px-4 py-3 cursor-pointer flex flex-row items-start gap-3 transition-all duration-150',
+                tiebreak === val
+                  ? 'border-volt bg-volt/[0.04]'
+                  : 'border-white/10 bg-white/[0.02]',
+              ].join(' ')}
+            >
+              <div className={[
+                'w-4 h-4 rounded-full border-2 mt-0.5 shrink-0',
+                tiebreak === val ? 'border-volt bg-volt' : 'border-white/20',
+              ].join(' ')} />
+              <div className="flex flex-col">
+                <span className="text-[13px] font-bold text-white">{title}</span>
+                <span className="text-[11px] text-white/55 mt-0.5">{desc}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
 
       {/* Play-on cap */}
       {tiebreak === 'playOn' && (

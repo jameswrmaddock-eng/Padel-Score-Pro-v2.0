@@ -38,7 +38,7 @@ export default function Header() {
           </div>
           <span className="font-sans font-bold tracking-[0.04em] uppercase text-white leading-none">
             <span className="hidden sm:inline text-[17px]">
-              Padel<span className="text-volt">S</span>corePro
+              Padel<span className="text-volt">Score</span>Pro
             </span>
             <span className="sm:hidden text-[15px]">
               PSP<span className="text-volt">.</span>
