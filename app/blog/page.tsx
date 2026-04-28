@@ -47,7 +47,7 @@ export default function BlogPage() {
           >
             Blog<span className="text-volt">.</span>
           </h1>
-          <p className="font-sans text-[15px] text-white/40 mt-3 max-w-[480px] leading-relaxed">
+          <p className="font-sans text-[15px] text-white/65 mt-3 max-w-[480px] leading-relaxed">
             Tactics, rules, and gear advice for padel players who want to improve.
           </p>
         </div>
@@ -77,7 +77,7 @@ export default function BlogPage() {
                   >
                     {post.category}
                   </span>
-                  <span className="font-sans text-[10px] text-white/25 tracking-[0.04em]">
+                  <span className="font-sans text-[10px] text-white/50 tracking-[0.04em]">
                     {post.readTime}
                   </span>
                 </div>
@@ -88,13 +88,13 @@ export default function BlogPage() {
                 </h2>
 
                 {/* Subtitle */}
-                <p className="font-sans text-[13px] text-white/40 leading-relaxed flex-1 mb-5">
+                <p className="font-sans text-[13px] text-white/65 leading-relaxed flex-1 mb-5">
                   {post.subtitle}
                 </p>
 
                 {/* Footer */}
                 <div className="flex items-center justify-between pt-4 border-t border-white/[0.06]">
-                  <span className="font-sans text-[11px] text-white/25">{post.date}</span>
+                  <span className="font-sans text-[11px] text-white/50">{post.date}</span>
                   <span className="font-sans text-[11px] font-bold tracking-[0.06em] uppercase text-volt flex items-center gap-1.5 transition-gap duration-200">
                     Read
                     <svg width="11" height="11" viewBox="0 0 11 11" fill="none" aria-hidden>

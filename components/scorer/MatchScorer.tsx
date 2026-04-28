@@ -57,10 +57,10 @@ export default function MatchScorer() {
 
         {state && !state.winner && (
           <div className="text-right">
-            <p className="font-sans text-[10px] text-white/25 uppercase tracking-[0.06em]">
+            <p className="font-sans text-[10px] text-white/50 uppercase tracking-[0.06em]">
               {state.config.format === 1 ? '1 Set' : 'Best of 3'}
             </p>
-            <p className="font-sans text-[10px] text-white/25 uppercase tracking-[0.06em]">
+            <p className="font-sans text-[10px] text-white/50 uppercase tracking-[0.06em]">
               {state.config.deuceMode === 'longDeuce'    ? 'Long Deuce'
                 : state.config.deuceMode === 'silverPoint' ? 'Silver Pt'
                 : state.config.deuceMode === 'goldenPoint' ? 'Golden Pt'

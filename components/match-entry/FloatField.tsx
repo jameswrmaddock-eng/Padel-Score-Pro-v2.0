@@ -51,7 +51,7 @@ const FloatField = forwardRef<HTMLInputElement, FloatFieldProps>(
             lifted
               ? 'top-0 text-[10px] tracking-[0.1em] uppercase font-display font-bold'
               : 'top-5 text-[15px] font-normal font-body',
-            focused ? 'text-volt' : 'text-white/30',
+            focused ? 'text-volt' : 'text-white/55',
           ].join(' ')}
         >
           {label}

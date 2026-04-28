@@ -73,7 +73,7 @@ export default function RecentMatches() {
                   'px-3.5 py-1.5 rounded-full border transition-all duration-300 ease-in-out',
                   filter === key
                     ? 'bg-volt/[0.08] border-volt/25 text-volt'
-                    : 'bg-transparent border-white/10 text-white/35 hover:border-white/20 hover:text-white/60',
+                    : 'bg-transparent border-white/10 text-white/60 hover:border-white/20 hover:text-white/60',
                 ].join(' ')}
               >
                 {label}
@@ -83,7 +83,7 @@ export default function RecentMatches() {
 
           <a
             href="/history"
-            className="flex items-center gap-1.5 font-sans text-[12px] font-semibold text-white/35 hover:text-white/75 transition-colors duration-300 ease-in-out"
+            className="flex items-center gap-1.5 font-sans text-[12px] font-semibold text-white/60 hover:text-white/75 transition-colors duration-300 ease-in-out"
           >
             View all
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden>
@@ -114,7 +114,7 @@ export default function RecentMatches() {
             <p className="font-mono text-[28px] font-bold tracking-[-0.03em] leading-none text-volt">
               {s.num}
             </p>
-            <p className="font-sans text-[11px] font-semibold tracking-[0.08em] uppercase text-white/30 mt-1">
+            <p className="font-sans text-[11px] font-semibold tracking-[0.08em] uppercase text-white/55 mt-1">
               {s.label}
             </p>
           </div>
@@ -124,7 +124,7 @@ export default function RecentMatches() {
       {/* Bento grid */}
       {filtered.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-20 text-center">
-          <p className="font-sans text-[15px] font-bold text-white/25">No matches found</p>
+          <p className="font-sans text-[15px] font-bold text-white/50">No matches found</p>
           <p className="font-sans text-[12px] text-white/15 mt-1">Try a different filter</p>
         </div>
       ) : (

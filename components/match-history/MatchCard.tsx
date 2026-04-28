@@ -136,7 +136,7 @@ export default function MatchCard({ match, featured = false, style }: MatchCardP
                 'font-display text-[11px] font-extrabold',
                 aIsWinner
                   ? 'bg-volt/[0.12] text-volt'
-                  : 'bg-white/[0.04] text-white/25',
+                  : 'bg-white/[0.04] text-white/50',
               ].join(' ')}
             >
               {initials(match.teamA)}
@@ -172,7 +172,7 @@ export default function MatchCard({ match, featured = false, style }: MatchCardP
                 'font-display text-[11px] font-extrabold',
                 !aIsWinner
                   ? 'bg-volt/[0.12] text-volt'
-                  : 'bg-white/[0.04] text-white/25',
+                  : 'bg-white/[0.04] text-white/50',
               ].join(' ')}
             >
               {initials(match.teamB)}

@@ -50,22 +50,22 @@ export default function WinnerScreen({ state, onReset }: WinnerScreenProps) {
         <h2 className="font-sans text-[32px] font-black tracking-[-0.03em] text-white leading-none">
           {winnerName}
         </h2>
-        <p className="font-sans text-[14px] text-white/40 mt-1">wins the match</p>
+        <p className="font-sans text-[14px] text-white/65 mt-1">wins the match</p>
       </div>
 
       <div className="bg-volt/[0.05] border border-volt/[0.15] rounded-2xl px-6 py-4 w-full"
            style={{ animation: 'fadeUp 0.4s 0.3s ease both', opacity: 0 }}>
         <div className="flex justify-between items-center mb-2">
-          <span className="font-sans text-[10px] font-bold tracking-[0.1em] uppercase text-white/25">Score</span>
+          <span className="font-sans text-[10px] font-bold tracking-[0.1em] uppercase text-white/50">Score</span>
           <span className="font-sans font-mono text-[13px] font-bold text-volt">{scoreStr}</span>
         </div>
         <div className="flex justify-between items-center mb-2">
-          <span className="font-sans text-[10px] font-bold tracking-[0.1em] uppercase text-white/25">Winner</span>
+          <span className="font-sans text-[10px] font-bold tracking-[0.1em] uppercase text-white/50">Winner</span>
           <span className="font-sans text-[13px] font-bold text-volt">{winnerName}</span>
         </div>
         <div className="flex justify-between items-center">
-          <span className="font-sans text-[10px] font-bold tracking-[0.1em] uppercase text-white/25">Runner-up</span>
-          <span className="font-sans text-[13px] font-bold text-white/40">{loserName}</span>
+          <span className="font-sans text-[10px] font-bold tracking-[0.1em] uppercase text-white/50">Runner-up</span>
+          <span className="font-sans text-[13px] font-bold text-white/65">{loserName}</span>
         </div>
       </div>
 

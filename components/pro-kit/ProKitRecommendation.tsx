@@ -74,7 +74,7 @@ export default function ProKitRecommendation() {
         </div>
       ) : (
         <div className="flex flex-col items-center justify-center py-16 text-center">
-          <p className="font-display text-[16px] font-bold text-white/25 mb-1">
+          <p className="font-display text-[16px] font-bold text-white/50 mb-1">
             Nothing here yet
           </p>
           <p className="text-[12px] text-white/15">Check back soon</p>

@@ -37,7 +37,7 @@ export default function PhoneMockup() {
 
           {/* Status bar */}
           <div className="flex items-center justify-between px-4 pt-9 pb-2">
-            <span className="font-sans text-[10px] font-bold tracking-[0.1em] uppercase text-white/30">
+            <span className="font-sans text-[10px] font-bold tracking-[0.1em] uppercase text-white/55">
               Match
             </span>
             <span className="flex items-center gap-1.5 text-[9px] font-bold tracking-[0.1em] uppercase text-volt bg-volt/10 border border-volt/20 rounded-full px-2.5 py-0.5">
@@ -55,7 +55,7 @@ export default function PhoneMockup() {
 
               {/* Team A — winning */}
               <div>
-                <p className="font-sans text-[9px] font-bold tracking-[0.1em] uppercase text-white/30 mb-2">
+                <p className="font-sans text-[9px] font-bold tracking-[0.1em] uppercase text-white/55 mb-2">
                   Team A
                 </p>
                 <p className="font-sans text-[56px] font-black leading-none tracking-[-0.04em] text-volt">
@@ -69,7 +69,7 @@ export default function PhoneMockup() {
                     3
                   </span>
                 </div>
-                <div className="flex items-center justify-center gap-1.5 mt-2 text-[9px] text-white/25">
+                <div className="flex items-center justify-center gap-1.5 mt-2 text-[9px] text-white/50">
                   <span className="w-1.5 h-1.5 rounded-full bg-volt" />
                   Serving
                 </div>
@@ -80,7 +80,7 @@ export default function PhoneMockup() {
 
               {/* Team B — losing */}
               <div>
-                <p className="font-sans text-[9px] font-bold tracking-[0.1em] uppercase text-white/30 mb-2">
+                <p className="font-sans text-[9px] font-bold tracking-[0.1em] uppercase text-white/55 mb-2">
                   Team B
                 </p>
                 <p className="font-sans text-[56px] font-black leading-none tracking-[-0.04em] text-white/10">
@@ -104,7 +104,7 @@ export default function PhoneMockup() {
             <div className="py-3 rounded-[10px] bg-volt/10 border border-volt/[0.25] font-sans text-[10px] font-bold tracking-[0.06em] uppercase text-center text-volt">
               + Team A
             </div>
-            <div className="py-3 rounded-[10px] bg-white/[0.04] border border-white/[0.08] font-sans text-[10px] font-bold tracking-[0.06em] uppercase text-center text-white/30">
+            <div className="py-3 rounded-[10px] bg-white/[0.04] border border-white/[0.08] font-sans text-[10px] font-bold tracking-[0.06em] uppercase text-center text-white/55">
               + Team B
             </div>
           </div>

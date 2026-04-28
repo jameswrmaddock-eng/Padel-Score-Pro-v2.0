@@ -29,7 +29,7 @@ export default function ScorePage() {
         <h1 className="font-sans text-[clamp(28px,5vw,40px)] font-black tracking-[-0.03em] uppercase text-white leading-none mb-3">
           Score a Match
         </h1>
-        <p className="font-sans text-[14px] text-white/40 leading-relaxed">
+        <p className="font-sans text-[14px] text-white/65 leading-relaxed">
           Set up your teams, pick your format, and tap to score. Exactly what&apos;s in the app.
         </p>
       </div>

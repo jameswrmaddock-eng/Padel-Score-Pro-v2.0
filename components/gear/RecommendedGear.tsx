@@ -12,7 +12,7 @@ export default function RecommendedGear() {
       <div className="mb-12">
         <div className="flex items-center gap-3 mb-2">
           <div className="w-6 h-px bg-white/20" />
-          <span className="font-sans text-[11px] font-bold tracking-[0.16em] uppercase text-white/30">
+          <span className="font-sans text-[11px] font-bold tracking-[0.16em] uppercase text-white/55">
             Curated gear
           </span>
         </div>
@@ -26,7 +26,7 @@ export default function RecommendedGear() {
           <span className="text-volt">Kit.</span>
         </h2>
 
-        <p className="font-sans text-[14px] text-white/35 mt-3 max-w-[440px] leading-relaxed">
+        <p className="font-sans text-[14px] text-white/60 mt-3 max-w-[440px] leading-relaxed">
           Three rackets trusted by club players and touring professionals. Chosen for build
           quality, feel, and longevity — not margin.
         </p>

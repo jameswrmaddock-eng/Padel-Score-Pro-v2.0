@@ -82,7 +82,7 @@ export default function Hero() {
                   <p className="font-sans text-[22px] font-extrabold tracking-[-0.03em] leading-none text-volt">
                     {s.num}
                   </p>
-                  <p className="font-sans text-[11px] font-medium text-white/30 mt-1 tracking-[0.03em]">
+                  <p className="font-sans text-[11px] font-medium text-white/55 mt-1 tracking-[0.03em]">
                     {s.label}
                   </p>
                 </div>

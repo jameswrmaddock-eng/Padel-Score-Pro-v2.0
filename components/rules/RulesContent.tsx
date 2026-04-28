@@ -170,7 +170,7 @@ export default function RulesContent() {
                   document.getElementById(item.id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }, 50);
               }}
-              className="font-sans text-[11px] font-bold tracking-[0.06em] uppercase px-3.5 py-1.5 rounded-full border border-white/10 text-white/40 transition-all duration-200 hover:border-volt/30 hover:text-volt hover:bg-volt/[0.05] cursor-pointer"
+              className="font-sans text-[11px] font-bold tracking-[0.06em] uppercase px-3.5 py-1.5 rounded-full border border-white/10 text-white/65 transition-all duration-200 hover:border-volt/30 hover:text-volt hover:bg-volt/[0.05] cursor-pointer"
             >
               {item.label}
             </button>
@@ -232,7 +232,7 @@ export default function RulesContent() {
                             <h3 className="font-sans text-[13px] font-bold text-white mb-1">
                               {rule.title}
                             </h3>
-                            <p className="font-sans text-[13px] text-white/40 leading-relaxed m-0">
+                            <p className="font-sans text-[13px] text-white/65 leading-relaxed m-0">
                               {rule.body}
                             </p>
                           </div>
@@ -244,7 +244,7 @@ export default function RulesContent() {
                   {/* Scoring grid */}
                   {section.custom === 'scoring' && (
                     <>
-                      <p className="font-sans text-[13px] text-white/40 leading-relaxed mb-4">
+                      <p className="font-sans text-[13px] text-white/65 leading-relaxed mb-4">
                         Padel uses the same point and game scoring as tennis. Points progress as follows:
                       </p>
                       <div className="grid gap-2 mb-6" style={{ gridTemplateColumns: 'repeat(5, minmax(0,1fr))' }}>
@@ -260,7 +260,7 @@ export default function RulesContent() {
                             <div className="font-sans text-[20px] font-black leading-none text-volt mb-1">
                               {s.num}
                             </div>
-                            <div className="font-sans text-[9px] font-bold tracking-[0.08em] uppercase text-white/25">
+                            <div className="font-sans text-[9px] font-bold tracking-[0.08em] uppercase text-white/50">
                               {s.label}
                             </div>
                           </div>
@@ -279,7 +279,7 @@ export default function RulesContent() {
                           {rule.volt ? <CheckIcon volt /> : <CheckIcon />}
                           <div>
                             <h3 className="font-sans text-[13px] font-bold text-white mb-1">{rule.title}</h3>
-                            <p className="font-sans text-[13px] text-white/40 leading-relaxed m-0">{rule.body}</p>
+                            <p className="font-sans text-[13px] text-white/65 leading-relaxed m-0">{rule.body}</p>
                           </div>
                         </div>
                       ))}
@@ -289,7 +289,7 @@ export default function RulesContent() {
                   {/* Deuce cards */}
                   {section.custom === 'deuce' && (
                     <>
-                      <p className="font-sans text-[13px] text-white/40 leading-relaxed mb-4">
+                      <p className="font-sans text-[13px] text-white/65 leading-relaxed mb-4">
                         When both teams reach 40-40, the format used to decide the game varies.
                         PadelScorePro supports all three official variants.
                       </p>
@@ -309,7 +309,7 @@ export default function RulesContent() {
                             >
                               {d.name}
                             </p>
-                            <p className="font-sans text-[11px] text-white/35 leading-relaxed m-0">
+                            <p className="font-sans text-[11px] text-white/60 leading-relaxed m-0">
                               {d.desc}
                             </p>
                           </div>
@@ -333,7 +333,7 @@ export default function RulesContent() {
           <h2 className="font-sans text-[20px] font-black uppercase tracking-[-0.02em] text-white mb-1">
             Ready to play?
           </h2>
-          <p className="font-sans text-[13px] text-white/40 m-0">
+          <p className="font-sans text-[13px] text-white/65 m-0">
             The scorer handles all these rules automatically.
           </p>
         </div>

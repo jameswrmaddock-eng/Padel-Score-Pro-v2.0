@@ -93,12 +93,12 @@ export default function GearCard({ product, animDelay = 0 }: GearCardProps) {
               Editor&apos;s Pick
             </span>
           ) : (
-            <span className="font-sans text-[9px] font-bold tracking-[0.12em] uppercase px-2.5 py-1 rounded-full bg-white/[0.05] border border-white/[0.08] text-white/30">
+            <span className="font-sans text-[9px] font-bold tracking-[0.12em] uppercase px-2.5 py-1 rounded-full bg-white/[0.05] border border-white/[0.08] text-white/55">
               {product.skillLevel}
             </span>
           )}
           {product.featured && (
-            <span className="font-sans text-[9px] font-bold tracking-[0.1em] uppercase text-white/25">
+            <span className="font-sans text-[9px] font-bold tracking-[0.1em] uppercase text-white/50">
               {product.skillLevel}
             </span>
           )}
@@ -144,7 +144,7 @@ export default function GearCard({ product, animDelay = 0 }: GearCardProps) {
           <h3 className="font-sans text-[18px] font-extrabold tracking-tight text-white leading-[1.15] mb-1.5">
             {product.brand} {product.name}
           </h3>
-          <p className="font-sans text-[12px] text-white/35 leading-[1.55] mb-5">
+          <p className="font-sans text-[12px] text-white/60 leading-[1.55] mb-5">
             {product.spec}
           </p>
 
@@ -153,7 +153,7 @@ export default function GearCard({ product, animDelay = 0 }: GearCardProps) {
             {product.attrs.map((attr) => (
               <span
                 key={attr}
-                className="font-sans text-[9px] font-bold tracking-[0.06em] uppercase px-2 py-[3px] rounded-[5px] bg-white/[0.04] border border-white/[0.08] text-white/30"
+                className="font-sans text-[9px] font-bold tracking-[0.06em] uppercase px-2 py-[3px] rounded-[5px] bg-white/[0.04] border border-white/[0.08] text-white/55"
               >
                 {attr}
               </span>
@@ -177,7 +177,7 @@ export default function GearCard({ product, animDelay = 0 }: GearCardProps) {
             target="_blank"
             rel="sponsored noopener noreferrer"
             aria-label={`View ${product.brand} ${product.name} on Amazon`}
-            className="inline-flex items-center gap-1.5 font-sans text-[12px] font-semibold text-white/35 no-underline transition-all duration-250 ease-in-out hover:text-volt hover:gap-2.5"
+            className="inline-flex items-center gap-1.5 font-sans text-[12px] font-semibold text-white/60 no-underline transition-all duration-250 ease-in-out hover:text-volt hover:gap-2.5"
           >
             View on Amazon
             <span className="transition-transform duration-250 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">

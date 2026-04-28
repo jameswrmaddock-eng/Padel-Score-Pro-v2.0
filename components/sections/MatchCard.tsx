@@ -139,7 +139,7 @@ export default function MatchCard({ match, featured = false, animDelay = 0 }: Ma
           <span className="font-sans text-[10px] font-bold tracking-[0.1em] uppercase text-white/20">
             {match.date}
           </span>
-          <span className="flex items-center gap-1 font-sans text-[11px] text-white/30">
+          <span className="flex items-center gap-1 font-sans text-[11px] text-white/55">
             <LocationIcon />
             {match.location}
           </span>
@@ -154,7 +154,7 @@ export default function MatchCard({ match, featured = false, animDelay = 0 }: Ma
               Live
             </span>
           ) : (
-            <span className="font-sans text-[9px] font-bold tracking-[0.1em] uppercase px-2.5 py-[3px] rounded-full bg-white/[0.05] border border-white/10 text-white/40">
+            <span className="font-sans text-[9px] font-bold tracking-[0.1em] uppercase px-2.5 py-[3px] rounded-full bg-white/[0.05] border border-white/10 text-white/65">
               Final
             </span>
           )}
@@ -169,7 +169,7 @@ export default function MatchCard({ match, featured = false, animDelay = 0 }: Ma
             <div className={[
               'w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0',
               'font-sans text-[11px] font-extrabold',
-              aIsWinner ? 'bg-volt/[0.12] text-volt' : 'bg-white/[0.04] text-white/25',
+              aIsWinner ? 'bg-volt/[0.12] text-volt' : 'bg-white/[0.04] text-white/50',
             ].join(' ')}>
               {initials(match.teamA)}
             </div>
@@ -197,7 +197,7 @@ export default function MatchCard({ match, featured = false, animDelay = 0 }: Ma
             <div className={[
               'w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0',
               'font-sans text-[11px] font-extrabold',
-              bIsWinner ? 'bg-volt/[0.12] text-volt' : 'bg-white/[0.04] text-white/25',
+              bIsWinner ? 'bg-volt/[0.12] text-volt' : 'bg-white/[0.04] text-white/50',
             ].join(' ')}>
               {initials(match.teamB)}
             </div>
@@ -234,7 +234,7 @@ export default function MatchCard({ match, featured = false, animDelay = 0 }: Ma
               </span>
             </>
           ) : (
-            <span className="font-sans text-[10px] font-bold tracking-[0.08em] uppercase text-white/30">
+            <span className="font-sans text-[10px] font-bold tracking-[0.08em] uppercase text-white/55">
               In progress
             </span>
           )}
@@ -248,7 +248,7 @@ export default function MatchCard({ match, featured = false, animDelay = 0 }: Ma
             'px-3 py-1.5 rounded-full border transition-all duration-300 ease-in-out',
             shareState === 'shared'
               ? 'bg-volt/[0.08] border-volt/20 text-volt'
-              : 'bg-transparent border-white/10 text-white/30 hover:bg-[#25D366]/[0.08] hover:border-[#25D366]/30 hover:text-[#25D366]',
+              : 'bg-transparent border-white/10 text-white/55 hover:bg-[#25D366]/[0.08] hover:border-[#25D366]/30 hover:text-[#25D366]',
           ].join(' ')}
         >
           <WhatsAppIcon />

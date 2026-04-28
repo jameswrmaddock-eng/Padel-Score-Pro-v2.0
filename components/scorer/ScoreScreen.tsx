@@ -283,10 +283,10 @@ export default function ScoreScreen({ state, onPoint, onUndo, canUndo, onReset }
             {inTiebreak ? 'Tiebreak' : (silverPointActive ? 'Silver Point' : (config.deuceMode === 'starPoint' && deuceCount >= 3 ? 'Star Point' : 'Live'))}
           </span>
         </div>
-        <span className="font-sans text-[11px] text-white/35 tracking-[0.04em]">
+        <span className="font-sans text-[11px] text-white/60 tracking-[0.04em]">
           {servingName} serving
         </span>
-        <span className="font-sans text-[11px] text-white/35">
+        <span className="font-sans text-[11px] text-white/60">
           Set {sets.length + 1}{config.format === 3 ? ' of 3' : ''}
         </span>
       </div>
@@ -324,7 +324,7 @@ export default function ScoreScreen({ state, onPoint, onUndo, canUndo, onReset }
 
       {/* Match log */}
       <details className="group">
-        <summary className="font-sans text-[10px] font-bold tracking-[0.1em] uppercase text-white/25 cursor-pointer hover:text-white/50 transition-colors duration-200 list-none flex items-center gap-2">
+        <summary className="font-sans text-[10px] font-bold tracking-[0.1em] uppercase text-white/50 cursor-pointer hover:text-white/50 transition-colors duration-200 list-none flex items-center gap-2">
           <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className="transition-transform duration-200 group-open:rotate-90" aria-hidden>
             <path d="M4.5 3L7.5 6L4.5 9" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
           </svg>
@@ -332,7 +332,7 @@ export default function ScoreScreen({ state, onPoint, onUndo, canUndo, onReset }
         </summary>
         <div className="mt-3 rounded-xl border border-white/[0.06] bg-white/[0.02] p-4 max-h-40 overflow-y-auto">
           {state.matchLog.slice().reverse().map((entry, i) => (
-            <p key={i} className="font-sans text-[11px] text-white/40 py-0.5 border-b border-white/[0.04] last:border-0">
+            <p key={i} className="font-sans text-[11px] text-white/65 py-0.5 border-b border-white/[0.04] last:border-0">
               {entry}
             </p>
           ))}

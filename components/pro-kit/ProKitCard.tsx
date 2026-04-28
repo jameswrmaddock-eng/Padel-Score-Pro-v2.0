@@ -87,7 +87,7 @@ export default function ProKitCard({ product, index = 0 }: ProKitCardProps) {
       {/* Body */}
       <div className="flex flex-col flex-1 p-[18px] pt-4">
         {/* Category tag */}
-        <p className="font-display text-[9px] font-bold tracking-[0.14em] uppercase text-white/25 mb-1.5">
+        <p className="font-display text-[9px] font-bold tracking-[0.14em] uppercase text-white/50 mb-1.5">
           {category.charAt(0).toUpperCase() + category.slice(1)}
         </p>
 
@@ -106,7 +106,7 @@ export default function ProKitCard({ product, index = 0 }: ProKitCardProps) {
           {attrs.map((attr) => (
             <span
               key={attr}
-              className="font-display text-[9px] font-bold tracking-[0.08em] uppercase px-2 py-[3px] rounded-md bg-white/[0.04] border border-white/[0.08] text-white/30"
+              className="font-display text-[9px] font-bold tracking-[0.08em] uppercase px-2 py-[3px] rounded-md bg-white/[0.04] border border-white/[0.08] text-white/55"
             >
               {attr}
             </span>

@@ -49,7 +49,7 @@ export default function SuccessView({ match, totalSaved, onReset }: SuccessViewP
         Match Saved!
       </h2>
       <p
-        className="text-sm text-white/40 leading-relaxed mb-5"
+        className="text-sm text-white/65 leading-relaxed mb-5"
         style={{ animation: 'fadeUp 0.4s 0.4s ease both', opacity: 0 }}
       >
         {totalSaved} match{totalSaved !== 1 ? 'es' : ''} logged in your history.
@@ -62,7 +62,7 @@ export default function SuccessView({ match, totalSaved, onReset }: SuccessViewP
       >
         {summaryRows.map((row) => (
           <div key={row.label} className="flex items-center justify-between py-1">
-            <span className="font-display text-[11px] font-bold tracking-[0.08em] uppercase text-white/25">
+            <span className="font-display text-[11px] font-bold tracking-[0.08em] uppercase text-white/50">
               {row.label}
             </span>
             <span className="font-display text-[13px] font-bold text-volt tracking-wide">

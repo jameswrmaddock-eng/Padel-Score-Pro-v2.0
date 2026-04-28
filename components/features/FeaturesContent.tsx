@@ -85,7 +85,7 @@ function SectionLabel({ n, label }: { n: string; label: string }) {
 function Spec({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex items-center justify-between py-2.5 border-b border-white/[0.06] last:border-0">
-      <span className="font-sans text-[11px] text-white/25 tracking-[0.04em]">{label}</span>
+      <span className="font-sans text-[11px] text-white/50 tracking-[0.04em]">{label}</span>
       <span className="font-mono text-[11px] text-white/45 tracking-[0.02em]">{value}</span>
     </div>
   );
@@ -140,7 +140,7 @@ function LiveTrackerVisual() {
             {isDeuce ? 'Deuce' : 'Live'}
           </span>
         </div>
-        <span className="font-mono text-[10px] text-white/25 text-center" style={{ width: '100px' }}>Set 1 · Game 4</span>
+        <span className="font-mono text-[10px] text-white/50 text-center" style={{ width: '100px' }}>Set 1 · Game 4</span>
         <div className="flex items-center justify-end" style={{ width: '64px' }}>
           <span className="font-sans text-[9px] text-white/20 uppercase tracking-[0.08em]">Long Deuce</span>
         </div>
@@ -163,7 +163,7 @@ function LiveTrackerVisual() {
             <div className="w-1.5 h-1.5 rounded-full bg-volt" style={{ animation: 'livePulse 1.8s ease-in-out infinite' }} />
             <span className="font-sans text-[9px] font-bold tracking-[0.08em] uppercase text-volt">Serving</span>
           </div>
-          <p className="font-sans text-[10px] font-bold tracking-[0.1em] uppercase text-white/35 mb-2">Los Tigres</p>
+          <p className="font-sans text-[10px] font-bold tracking-[0.1em] uppercase text-white/60 mb-2">Los Tigres</p>
           <p
             className="font-sans font-black leading-none tracking-[-0.04em] transition-all duration-500 tabular-nums"
             style={{
@@ -195,7 +195,7 @@ function LiveTrackerVisual() {
           }}
         >
           <div className="h-4 mb-2" />
-          <p className="font-sans text-[10px] font-bold tracking-[0.1em] uppercase text-white/35 mb-2">Raqueteros</p>
+          <p className="font-sans text-[10px] font-bold tracking-[0.1em] uppercase text-white/60 mb-2">Raqueteros</p>
           <p
             className="font-sans font-black leading-none tracking-[-0.04em] transition-all duration-500 tabular-nums"
             style={{
@@ -225,7 +225,7 @@ function LiveTrackerVisual() {
           style={{ background: 'rgba(204,255,0,0.1)', border: '1px solid rgba(204,255,0,0.25)' }}>
           + Los Tigres
         </div>
-        <div className="py-3 rounded-xl text-center font-sans text-[11px] font-bold uppercase tracking-[0.06em] text-white/30"
+        <div className="py-3 rounded-xl text-center font-sans text-[11px] font-bold uppercase tracking-[0.06em] text-white/55"
           style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}>
           + Raqueteros
         </div>
@@ -268,13 +268,13 @@ function PerformanceVisual() {
       {/* Header row */}
       <div className="flex items-center justify-between px-6 pt-5 pb-3">
         <div>
-          <p className="font-sans text-[10px] font-bold tracking-[0.1em] uppercase text-white/30 mb-0.5">Win rate</p>
+          <p className="font-sans text-[10px] font-bold tracking-[0.1em] uppercase text-white/55 mb-0.5">Win rate</p>
           <p className="font-sans text-[24px] font-black tracking-[-0.03em] text-volt leading-none">
             <Counter to={78} suffix="%" />
           </p>
         </div>
         <div className="text-right">
-          <p className="font-sans text-[10px] font-bold tracking-[0.1em] uppercase text-white/30 mb-0.5">Season 2026</p>
+          <p className="font-sans text-[10px] font-bold tracking-[0.1em] uppercase text-white/55 mb-0.5">Season 2026</p>
           <p className="font-mono text-[13px] font-bold text-white/50">
             <Counter to={247} /> pts tracked
           </p>
@@ -321,7 +321,7 @@ function PerformanceVisual() {
         ].map((s) => (
           <div key={s.label} className="flex flex-col items-center py-4 border-r border-white/[0.06] last:border-r-0">
             <p className="font-mono text-[18px] font-bold text-white leading-none">{s.val}</p>
-            <p className="font-sans text-[9px] font-bold tracking-[0.08em] uppercase text-white/25 mt-1">{s.label}</p>
+            <p className="font-sans text-[9px] font-bold tracking-[0.08em] uppercase text-white/50 mt-1">{s.label}</p>
           </div>
         ))}
       </div>
@@ -356,7 +356,7 @@ function ShareVisual() {
           </div>
           <div>
             <p className="font-sans text-[10px] font-bold tracking-[0.06em] text-white leading-none">PadelScorePro</p>
-            <p className="font-mono text-[8px] text-white/30 mt-0.5">Today · 16:42</p>
+            <p className="font-mono text-[8px] text-white/55 mt-0.5">Today · 16:42</p>
           </div>
         </div>
 
@@ -364,7 +364,7 @@ function ShareVisual() {
 
         {/* Match result */}
         <div className="px-5 py-5 text-center">
-          <p className="font-sans text-[9px] font-bold tracking-[0.12em] uppercase text-white/30 mb-3">Match Result</p>
+          <p className="font-sans text-[9px] font-bold tracking-[0.12em] uppercase text-white/55 mb-3">Match Result</p>
 
           <div className="flex items-center justify-between mb-4">
             <div className="text-left">
@@ -373,8 +373,8 @@ function ShareVisual() {
             </div>
             <p className="font-sans text-[10px] text-white/20 font-bold">VS</p>
             <div className="text-right">
-              <p className="font-sans text-[11px] font-bold text-white/40">Raqueteros</p>
-              <p className="font-mono text-[28px] font-black text-white/25 leading-none tracking-[-0.03em]">0</p>
+              <p className="font-sans text-[11px] font-bold text-white/65">Raqueteros</p>
+              <p className="font-mono text-[28px] font-black text-white/50 leading-none tracking-[-0.03em]">0</p>
             </div>
           </div>
 
@@ -390,7 +390,7 @@ function ShareVisual() {
 
           <div className="h-px bg-white/[0.06] mb-3" />
 
-          <p className="font-sans text-[9px] text-white/25 leading-relaxed">
+          <p className="font-sans text-[9px] text-white/50 leading-relaxed">
             &quot;Great match — solid performance at the net throughout.&quot;
           </p>
         </div>
@@ -448,7 +448,7 @@ function GearVisual() {
                 </span>
               )}
             </div>
-            <p className="font-sans text-[10px] text-white/30">{p.level}</p>
+            <p className="font-sans text-[10px] text-white/55">{p.level}</p>
           </div>
 
           <div className="text-right flex-shrink-0">
@@ -457,7 +457,7 @@ function GearVisual() {
               href={`https://www.amazon.co.uk/s?k=${encodeURIComponent(p.brand + ' ' + p.name + ' padel')}&tag=jmadd1791-21`}
               target="_blank"
               rel="sponsored noopener"
-              className="inline-flex items-center gap-1 font-sans text-[10px] font-bold text-white/30 hover:text-volt transition-colors duration-200 mt-0.5"
+              className="inline-flex items-center gap-1 font-sans text-[10px] font-bold text-white/55 hover:text-volt transition-colors duration-200 mt-0.5"
             >
               Amazon
               <svg width="9" height="9" viewBox="0 0 9 9" fill="none">
@@ -491,7 +491,7 @@ export default function FeaturesContent() {
           >
             Built for<br /><span className="text-volt">Padel.</span>
           </h1>
-          <p className="font-sans text-[15px] text-white/40 max-w-[480px] leading-relaxed">
+          <p className="font-sans text-[15px] text-white/65 max-w-[480px] leading-relaxed">
             Every feature designed around one thing — helping you play better and track it precisely.
           </p>
         </Reveal>
@@ -521,7 +521,7 @@ export default function FeaturesContent() {
                   No accounts. No friction. Just play. Tap to score, and the engine handles
                   everything — points, games, sets, serve rotation, and deuce in every format.
                 </p>
-                <p className="font-sans text-[13px] text-white/30 leading-relaxed italic mb-8">
+                <p className="font-sans text-[13px] text-white/55 leading-relaxed italic mb-8">
                   &quot;Precision at your fingertips. No accounts. No friction. Just play.&quot;
                 </p>
                 <div className="rounded-xl overflow-hidden border border-white/[0.06]" style={{ background: 'rgba(255,255,255,0.02)' }}>
@@ -556,7 +556,7 @@ export default function FeaturesContent() {
                   <span className="font-mono text-[48px] font-bold text-volt leading-none tracking-[-0.03em]">
                     <Counter to={247} />
                   </span>
-                  <span className="font-sans text-[13px] text-white/30 uppercase tracking-[0.06em]">points tracked<br />this season</span>
+                  <span className="font-sans text-[13px] text-white/55 uppercase tracking-[0.06em]">points tracked<br />this season</span>
                 </div>
                 <div className="rounded-xl overflow-hidden border border-white/[0.06]" style={{ background: 'rgba(255,255,255,0.02)' }}>
                   <Spec label="Data stored" value="localStorage · Supabase ready" />
@@ -635,7 +635,7 @@ export default function FeaturesContent() {
                   The right equipment makes the difference. Our curated recommendations are
                   chosen for build quality, feel, and longevity — not margin.
                 </p>
-                <p className="font-sans text-[12px] text-white/25 italic mb-8">
+                <p className="font-sans text-[12px] text-white/50 italic mb-8">
                   Affiliate links — we earn a small commission at no cost to you.
                   Keeps PadelScorePro free forever.
                 </p>
@@ -672,7 +672,7 @@ export default function FeaturesContent() {
             <h2 className="font-sans text-[28px] font-black tracking-[-0.03em] uppercase text-white">
               Ready to score?
             </h2>
-            <p className="font-sans text-[14px] text-white/35 mt-1">Free. No account. Works on any device.</p>
+            <p className="font-sans text-[14px] text-white/60 mt-1">Free. No account. Works on any device.</p>
           </Reveal>
           <Reveal delay={0.15}>
             <a

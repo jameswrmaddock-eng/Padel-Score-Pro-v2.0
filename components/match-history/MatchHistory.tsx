@@ -93,7 +93,7 @@ export default function MatchHistory({ myTeam = '' }: MatchHistoryProps) {
               <path d="M7 10h6M10 7v6" stroke="rgba(255,255,255,0.2)" strokeWidth="1.2" strokeLinecap="round" />
             </svg>
           </div>
-          <p className="font-display text-[18px] font-bold text-white/40 mb-1.5">No matches found</p>
+          <p className="font-display text-[18px] font-bold text-white/65 mb-1.5">No matches found</p>
           <p className="text-[13px] text-white/20">Try a different filter or log your first match</p>
         </div>
       ) : (

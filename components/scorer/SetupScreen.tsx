@@ -10,12 +10,12 @@ interface SetupScreenProps {
 
 const PILL = 'px-4 py-2 rounded-full text-[12px] font-bold tracking-[0.06em] uppercase transition-all duration-200 ease-in-out border cursor-pointer';
 const PILL_ON  = `${PILL} bg-volt text-[#050505] border-volt`;
-const PILL_OFF = `${PILL} bg-transparent text-white/40 border-white/12 hover:border-white/25 hover:text-white/70`;
+const PILL_OFF = `${PILL} bg-transparent text-white/65 border-white/12 hover:border-white/25 hover:text-white/70`;
 
 function OptionRow({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div className="flex flex-col gap-2.5">
-      <span className="text-[10px] font-bold tracking-[0.12em] uppercase text-white/30">{label}</span>
+      <span className="text-[10px] font-bold tracking-[0.12em] uppercase text-white/55">{label}</span>
       <div className="flex flex-wrap gap-2">{children}</div>
     </div>
   );
@@ -53,11 +53,11 @@ export default function SetupScreen({ onStart }: SetupScreenProps) {
       {/* Teams */}
       <div className="grid grid-cols-2 gap-5">
         <div className="flex flex-col gap-1.5">
-          <span className="text-[10px] font-bold tracking-[0.12em] uppercase text-white/30">Team A</span>
+          <span className="text-[10px] font-bold tracking-[0.12em] uppercase text-white/55">Team A</span>
           <input className={INPUT} value={teamA} onChange={(e) => setTeamA(e.target.value)} placeholder="Team A" maxLength={20} />
         </div>
         <div className="flex flex-col gap-1.5">
-          <span className="text-[10px] font-bold tracking-[0.12em] uppercase text-white/30">Team B</span>
+          <span className="text-[10px] font-bold tracking-[0.12em] uppercase text-white/55">Team B</span>
           <input className={INPUT} value={teamB} onChange={(e) => setTeamB(e.target.value)} placeholder="Team B" maxLength={20} />
         </div>
       </div>

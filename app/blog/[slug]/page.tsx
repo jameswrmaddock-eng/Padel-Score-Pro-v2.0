@@ -66,7 +66,7 @@ export default async function BlogPostPage({ params }: Props) {
         {/* Back link */}
         <Link
           href="/blog"
-          className="inline-flex items-center gap-2 font-sans text-[11px] font-bold tracking-[0.08em] uppercase text-white/30 hover:text-white/70 transition-colors duration-200 mb-10 no-underline"
+          className="inline-flex items-center gap-2 font-sans text-[11px] font-bold tracking-[0.08em] uppercase text-white/55 hover:text-white/70 transition-colors duration-200 mb-10 no-underline"
         >
           <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden>
             <path d="M9 6H3M3 6l3-3M3 6l3 3" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
@@ -83,8 +83,8 @@ export default async function BlogPostPage({ params }: Props) {
             >
               {post.category}
             </span>
-            <span className="font-sans text-[11px] text-white/25">{post.readTime}</span>
-            <span className="font-sans text-[11px] text-white/25">{post.date}</span>
+            <span className="font-sans text-[11px] text-white/50">{post.readTime}</span>
+            <span className="font-sans text-[11px] text-white/50">{post.date}</span>
           </div>
 
           <h1
@@ -159,7 +159,7 @@ export default async function BlogPostPage({ params }: Props) {
         <div className="mt-12 pt-8 border-t border-white/[0.06]">
           <Link
             href="/blog"
-            className="inline-flex items-center gap-2 font-sans text-[12px] font-bold tracking-[0.06em] uppercase text-white/30 hover:text-white/70 transition-colors duration-200 no-underline"
+            className="inline-flex items-center gap-2 font-sans text-[12px] font-bold tracking-[0.06em] uppercase text-white/55 hover:text-white/70 transition-colors duration-200 no-underline"
           >
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden>
               <path d="M9 6H3M3 6l3-3M3 6l3 3" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />

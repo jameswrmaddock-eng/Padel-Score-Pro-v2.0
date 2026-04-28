@@ -103,7 +103,7 @@ export default function MatchEntry() {
 
             {/* Teams */}
             <div>
-              <p className="font-display text-[10px] font-bold tracking-[0.14em] uppercase text-white/25 mb-3.5">
+              <p className="font-display text-[10px] font-bold tracking-[0.14em] uppercase text-white/50 mb-3.5">
                 Teams
               </p>
               <div className="grid grid-cols-2 gap-5">
@@ -121,7 +121,7 @@ export default function MatchEntry() {
 
             {/* Sets */}
             <div>
-              <p className="font-display text-[10px] font-bold tracking-[0.14em] uppercase text-white/25 mb-3.5">
+              <p className="font-display text-[10px] font-bold tracking-[0.14em] uppercase text-white/50 mb-3.5">
                 Score — 3 Sets
               </p>
               <div className="grid grid-cols-3 gap-3">
@@ -145,7 +145,7 @@ export default function MatchEntry() {
 
             {/* Location */}
             <div>
-              <p className="font-display text-[10px] font-bold tracking-[0.14em] uppercase text-white/25 mb-3.5">
+              <p className="font-display text-[10px] font-bold tracking-[0.14em] uppercase text-white/50 mb-3.5">
                 Location
               </p>
               <FloatField id="location" label="Court / club name" value={form.location}
@@ -189,7 +189,7 @@ export default function MatchEntry() {
               {recentMatches.map((m) => (
                 <span
                   key={m.id}
-                  className="bg-white/[0.04] border border-white/[0.08] rounded-full px-2.5 py-1 font-display text-[10px] font-bold text-white/30 whitespace-nowrap tracking-[0.04em]"
+                  className="bg-white/[0.04] border border-white/[0.08] rounded-full px-2.5 py-1 font-display text-[10px] font-bold text-white/55 whitespace-nowrap tracking-[0.04em]"
                 >
                   {m.teamA.slice(0, 6)} v {m.teamB.slice(0, 6)}
                 </span>
