@@ -291,23 +291,25 @@ export default function ScoreScreen({ state, onPoint, onUndo, canUndo, onReset }
         </span>
       </div>
 
-      {/* Deuce / Advantage banner */}
-      {deuce && !inTiebreak && (
-        <div
-          className="w-full rounded-lg py-2 flex items-center justify-center"
-          style={{
-            backgroundColor: deuceAdvantage ? 'rgba(204,255,0,0.08)' : 'rgba(204,255,0,0.05)',
-          }}
-        >
-          <span className="font-sans text-[12px] font-bold tracking-[0.14em] uppercase text-volt">
-            {deuceAdvantage === 'A'
-              ? `Advantage ${state.config.teamA}`
-              : deuceAdvantage === 'B'
-              ? `Advantage ${state.config.teamB}`
-              : 'Deuce'}
-          </span>
-        </div>
-      )}
+      {/* Fixed-height banner slot — always h-9 so score panels never shift */}
+      <div className="h-9 flex items-center justify-center overflow-hidden rounded-lg">
+        {deuce && !inTiebreak && (
+          <div
+            className="w-full h-full flex items-center justify-center rounded-lg"
+            style={{
+              backgroundColor: deuceAdvantage ? 'rgba(204,255,0,0.08)' : 'rgba(204,255,0,0.05)',
+            }}
+          >
+            <span className="font-sans text-[12px] font-bold tracking-[0.14em] uppercase text-volt">
+              {deuceAdvantage === 'A'
+                ? `Advantage ${state.config.teamA}`
+                : deuceAdvantage === 'B'
+                ? `Advantage ${state.config.teamB}`
+                : 'Deuce'}
+            </span>
+          </div>
+        )}
+      </div>
 
       {/* Score panels */}
       <div className="grid grid-cols-2 gap-3">
