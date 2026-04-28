@@ -147,11 +147,36 @@ export default function SetupScreen({ onStart }: SetupScreenProps) {
       )}
 
       {/* First serve */}
-      <OptionRow label="First Serve">
-        <button className={firstServe === 'random' ? PILL_ON : PILL_OFF} onClick={() => setFirstServe('random')}>Random</button>
-        <button className={firstServe === 'A'      ? PILL_ON : PILL_OFF} onClick={() => setFirstServe('A')}>{teamA || 'Team A'}</button>
-        <button className={firstServe === 'B'      ? PILL_ON : PILL_OFF} onClick={() => setFirstServe('B')}>{teamB || 'Team B'}</button>
-      </OptionRow>
+      <div className="flex flex-col gap-2.5">
+        <span className="text-[10px] font-bold tracking-[0.12em] uppercase text-white/55">First Serve</span>
+        <div className="flex flex-col gap-2">
+          {([
+            ['random', 'Random',           'System randomly picks who serves first'],
+            ['A',      teamA || 'Team A',  `${teamA || 'Team A'} starts on serve`],
+            ['B',      teamB || 'Team B',  `${teamB || 'Team B'} starts on serve`],
+          ] as [Side | 'random', string, string][]).map(([val, title, desc]) => (
+            <div
+              key={val}
+              onClick={() => setFirstServe(val)}
+              className={[
+                'w-full rounded-xl border px-4 py-3 cursor-pointer flex flex-row items-start gap-3 transition-all duration-150',
+                firstServe === val
+                  ? 'border-volt bg-volt/[0.04]'
+                  : 'border-white/10 bg-white/[0.02]',
+              ].join(' ')}
+            >
+              <div className={[
+                'w-4 h-4 rounded-full border-2 mt-0.5 shrink-0',
+                firstServe === val ? 'border-volt bg-volt' : 'border-white/20',
+              ].join(' ')} />
+              <div className="flex flex-col">
+                <span className="text-[13px] font-bold text-white">{title}</span>
+                <span className="text-[11px] text-white/55 mt-0.5">{desc}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
 
       {/* Start */}
       <button
