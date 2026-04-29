@@ -305,6 +305,8 @@ export default function ScoreScreen({ state, onPoint, onUndo, canUndo, onReset }
                 ? `Advantage ${state.config.teamA}`
                 : deuceAdvantage === 'B'
                 ? `Advantage ${state.config.teamB}`
+                : silverPointActive
+                ? 'Silver Point'
                 : 'Deuce'}
             </span>
           </div>
