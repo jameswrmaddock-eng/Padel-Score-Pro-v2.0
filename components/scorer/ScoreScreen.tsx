@@ -293,7 +293,13 @@ export default function ScoreScreen({ state, onPoint, onUndo, canUndo, onReset }
 
       {/* Fixed-height banner slot — always h-9 so score panels never shift */}
       <div className="h-9 flex items-center justify-center overflow-hidden rounded-lg">
-        {deuce && !inTiebreak && (
+        {deuce && !inTiebreak && config.deuceMode === 'starPoint' && deuceCount >= 3 ? (
+          <div className="w-full h-full flex items-center justify-center rounded-lg bg-volt">
+            <span className="font-sans text-[12px] font-bold tracking-[0.14em] uppercase text-black">
+              ✦ Star Point
+            </span>
+          </div>
+        ) : deuce && !inTiebreak ? (
           <div
             className="w-full h-full flex items-center justify-center rounded-lg"
             style={{
@@ -310,7 +316,7 @@ export default function ScoreScreen({ state, onPoint, onUndo, canUndo, onReset }
                 : 'Deuce'}
             </span>
           </div>
-        )}
+        ) : null}
       </div>
 
       {/* Score panels */}
